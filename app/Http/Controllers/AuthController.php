@@ -11,7 +11,7 @@ class AuthController extends Controller{
         return view("cadastro");
     }
     public function cadastroEntrar(Request $request){
-
+        
     }
 
     public function login(Request $request){
