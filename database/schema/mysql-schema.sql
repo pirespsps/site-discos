@@ -172,7 +172,7 @@ CREATE TABLE `tb_user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user` varchar(25) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `senha` varchar(20) NOT NULL,
+  `senha` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)

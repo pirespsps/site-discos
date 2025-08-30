@@ -1,3 +1,18 @@
-<div>
-    <!-- It is not the man who has too little, but the man who craves more, that is poor. - Seneca -->
-</div>
+@extends('layouts.principal-layout')
+
+@section('content')
+
+@if ($isLoginFailed)
+<h1>Senha incorreta</h1>
+@endif
+
+<form action="{{ route('login-entrar') }}" method="POST">
+    @csrf
+
+    <input type="email" name="text-email" placeholder="E-mail...">
+    <input type="password" name="text-password" placeholder="Senha...">
+
+    <input type="submit">
+</form>
+
+@endsection
