@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use App\Models\Usuario;
 
 class AuthController extends Controller
 {
 
-    public function cadastro(Request $request)
-    {
+    public function cadastro(Request $request){
 
         return view("cadastro");
     }
@@ -50,7 +50,7 @@ class AuthController extends Controller
 
         $usuario->save();
 
-        //salvar cookie...
+        Cookie::queue('conta',$usuario->id,60*24*365);
 
         return view('index');
 
@@ -89,16 +89,18 @@ class AuthController extends Controller
             return view('login',['isLoginFailed' => true]);
         }
 
-        // salvar no cookie...
+        Cookie::queue('conta',$usuario->id,60*24*365);
 
         return view('index');
 
     }
 
 
-    public function logout(Request $request)
-    {
+    public function logout(Request $request){
+        Cookie::queue(Cookie::forget('conta'));
+        $request->session()->flush();
 
+        return view('index');
     }
 
 }
