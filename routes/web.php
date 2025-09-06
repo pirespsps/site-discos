@@ -5,12 +5,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 
 
-Route::get('/', [IndexController::class,"index"]);
+Route::get('/', [IndexController::class,"index"])->name("index");
 
-Route::get("/cadastro",[AuthController::class,"cadastro"]);
+Route::get("/cadastro",[AuthController::class,"cadastro"])->name("cadastro");
 Route::post("/cadastro/entrar",[AuthController::class,"cadastroEntrar"])->name("cadastro-entrar");
 
-Route::get('/login',[AuthController::class,"login"]);
+Route::get('/login',[AuthController::class,"login"])->name("login");
 Route::post("/login/entrar",[AuthController::class,"loginEntrar"])->name("login-entrar");
 
 Route::post("/logout",[AuthController::class,"logout"]);

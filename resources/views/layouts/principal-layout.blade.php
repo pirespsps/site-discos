@@ -8,7 +8,6 @@
     <title>Site Disco</title>
 </head>
 <body>
-<h1>Layout</h1>
 
 @yield('content')
 
@@ -17,3 +16,4 @@
 
 </body>
 </html>
+
