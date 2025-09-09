@@ -14,7 +14,7 @@ class Disco extends Model
         return DB::table('tb_disco')
             ->join('tb_user_disco', 'tb_disco.id', '=', 'tb_user_disco.id_disco')
             ->select('tb_disco.*')
-            ->where('tb_user_disco.user_id', $id)
+            ->where('tb_user_disco.id_user', $id)
             ->limit(20)
             ->get();
     }
