@@ -19,7 +19,7 @@ class AuthController extends Controller
             [
                 'text-email' => 'required|email|unique:tb_user,email',
                 'text-user' => 'required|min:6|max:25|unique:tb_user,user',
-                'text-password' => 'required|min:8|max:20',
+                'text-password' => 'required_with:text-confirmpassword|same:text-confirmpassword|min:6|max:20',
             ],
             [
                 'text-user.required' => "O campo de usuário é obrigatório.",
@@ -33,7 +33,8 @@ class AuthController extends Controller
 
                 'text-passoword.required' => "O campo de senha é obrigatório.",
                 'text-passoword.min' => "Insira uma senha com mais de :min caracteres.",
-                'text-passoword.max' => "Insira uma senha com menos de :max caracteres."
+                'text-passoword.max' => "Insira uma senha com menos de :max caracteres.",
+                'text-password.same' => "O campo de confirmação da senha não corresponde a senha"
             ]
         );
 
@@ -68,22 +69,21 @@ class AuthController extends Controller
 
         $request->validate(
             [
-                'text-email' => 'required|email|exists:tb_user,email',
-                'text-password' => 'required'
+                'text-user' => 'required|exists:tb_user,user',
+                'text-password' => 'required',
             ],
             [
-                'text-email.required' => "O campo de e-mail é obrigatório.",
-                'text-email.email' => "Insira um e-mail válido.",
-                'text-email.exists' => 'O e-mail não está cadastrado.',
+                'text-user.required' => "O campo de usuário é obrigatório.",
+                'text-user.exists' => 'O usuário não está cadastrado.',
 
-                'text-passoword.required' => "O campo de senha é obrigatório."
+                'text-password.required' => "O campo de senha é obrigatório.",
             ]
         );
 
-        $email = trim($request->input('text-email'));
+        $user = trim($request->input('text-user'));
         $senha = trim($request->input('text-password'));
 
-        $usuario = Usuario::searchByEmail($email);
+        $usuario = Usuario::searchByUser($user);
 
         if(!password_verify($senha,$usuario->senha)){
             return view('login',['isLoginFailed' => true]);

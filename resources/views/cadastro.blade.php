@@ -27,35 +27,32 @@
 
                     <div class="row justify-content-center">
                         <div class="col-md-10 col-12">
-                            <form action="{{ route('login-entrar') }}" method="POST" novalidate>
+                            <form action="{{ route('cadastro-entrar') }}" method="POST" novalidate>
                             @csrf  
                             <div class="mb-5">
-                                <label class=" h3 text-light" for="text_email" class="form-label">Email</label>
-                                <input class="form-control bg-secondary text-info rounded-5" type="text" name="text_email" value="{{ old('text_email') }}">
-                                @error('text_email')
+                                <label class=" h3 text-light" for="text-email" class="form-label">Email</label>
+                                <input class="form-control bg-secondary text-info rounded-5" type="text" name="text-email" value="{{ old('text-email') }}">
+                                @error('text-email')
                                     <div class="text-danger">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="mb-5">
-                                <label class="h3 text-light" for="text_username" class="form-label">Usuário</label>
-                                <input class="form-control bg-secondary text-info rounded-5" type="text" name="text_username" value="{{ old('text_username') }}">
-                                @error('text_username')
+                                <label class="h3 text-light" for="text-user" class="form-label">Usuário</label>
+                                <input class="form-control bg-secondary text-info rounded-5" type="text" name="text-user" value="{{ old('text-user') }}">
+                                @error('text-user')
                                     <div class="text-danger">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="mb-5">
-                                <label class=" h3 text-light" for="text_password" class="form-label">Senha</label>
-                                <input class="form-control bg-secondary text-info rounded-5" type="password" name="text_password">
-                                @error('text_password')
+                                <label class=" h3 text-light" for="text-password" class="form-label">Senha</label>
+                                <input class="form-control bg-secondary text-info rounded-5" type="password" name="text-password">
+                                @error('text-password')
                                     <div class="text-danger">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="mb-5">
-                                <label class=" h3 text-light" for="text_confirmpassword" class="form-label">Confirme sua senha</label>
-                                <input class="form-control bg-secondary text-info rounded-5" type="password" name="text_confirmpassword">
-                                @error('text_confirmpassword')
-                                    <div class="text-danger">{{$message}}</div>
-                                @enderror
+                                <label class=" h3 text-light" for="text-confirmpassword" class="form-label">Confirme sua senha</label>
+                                <input class="form-control bg-secondary text-info rounded-5" type="password" name="text-confirmpassword">
                             </div>
                             <div class="mb-3 d-flex justify-content-between">
                                 <a href = {{route('login') }}><button class="btn btn-secondary w-40 rounded-5" type="button">Já tenho uma conta (Entrar)</button></a>

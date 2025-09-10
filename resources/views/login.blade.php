@@ -30,16 +30,16 @@
                             <form action="{{ route('login-entrar') }}" method="POST" novalidate>
                             @csrf  
                             <div class="mb-5">
-                                <label class="h3 text-light" for="text_username" class="form-label">Usuário</label>
-                                <input class="form-control bg-secondary text-info rounded-5" type="text" name="text_username" value="{{ old('text_username') }}">
-                                @error('text_username')
+                                <label class="h3 text-light" for="text-user" class="form-label">Usuário</label>
+                                <input class="form-control bg-secondary text-info rounded-5" type="text" name="text-user" value="{{ old('text-user') }}">
+                                @error('text-user')
                                     <div class="text-danger">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="mb-5">
-                                <label class=" h3 text-light" for="text_password" class="form-label">Senha</label>
-                                <input class="form-control bg-secondary text-info rounded-5" type="password" name="text_password" value="{{ old('text_password') }}">
-                                @error('text_password')
+                                <label class=" h3 text-light" for="text-password" class="form-label">Senha</label>
+                                <input class="form-control bg-secondary text-info rounded-5" type="password" name="text-password" value="{{ old('text-password') }}">
+                                @error('text-password')
                                     <div class="text-danger">{{$message}}</div>
                                 @enderror
                             </div>
@@ -48,6 +48,11 @@
                                 <button class="btn btn-success w-40 rounded-5" type="submit">Entrar</button>
                             </div>
                             </form>
+                             @if(session('login-error'))
+                                <div class="alert alert-danger text-center">
+                                    {{ session('login-error') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
 

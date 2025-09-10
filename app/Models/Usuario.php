@@ -8,8 +8,8 @@ class Usuario extends Model
 {
     protected $table = 'tb_user';
 
-    public static function searchByEmail($email){
-        return self::where('email',$email)->get()->first();
+    public static function searchByUser($user){
+        return self::where('user',$user)->get()->first();
     }
     
 }
