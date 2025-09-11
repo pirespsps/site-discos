@@ -48,9 +48,9 @@
                                 <button class="btn btn-success w-40 rounded-5" type="submit">Entrar</button>
                             </div>
                             </form>
-                             @if(session('login-error'))
+                             @if(session('isLoginFailed'))
                                 <div class="alert alert-danger text-center">
-                                    {{ session('login-error') }}
+                                    {{ session('isLoginFailed') }}
                                 </div>
                             @endif
                         </div>

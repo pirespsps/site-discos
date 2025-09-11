@@ -54,7 +54,7 @@ class AuthController extends Controller
 
         Cookie::queue('conta',$usuario->id,60*24*365);
 
-        return view('index');
+        return redirect()->route('index');
 
     }
 
@@ -86,13 +86,15 @@ class AuthController extends Controller
         $usuario = Usuario::searchByUser($user);
 
         if(!Hash::check($senha,$usuario->senha)){
-            return view('login',['isLoginFailed' => true]);
+            return redirect()->back()
+            ->withInput()
+            ->with(['isLoginFailed' => "As credenciais não coincidem."]);
+            // return view('login',['isLoginFailed' => true]);
         }
 
         Cookie::queue('conta',$usuario->id,60*24*365);
 
-        return view('index');
-
+        return redirect()->route('index');
     }
 
 
@@ -100,7 +102,7 @@ class AuthController extends Controller
         Cookie::queue(Cookie::forget('conta'));
         $request->session()->flush();
 
-        return view('index');
+        return redirect()->route('login');
     }
 
 }

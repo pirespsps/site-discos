@@ -1,5 +1,24 @@
 @import 'bootstrap/scss/bootstrap';
 
-h1{
-    color: red;
+$primary: #D34A24;
+$background: #3f414c;
+
+body{
+    background-color: $background;
+}
+
+hr{
+    border-color: white;
+    border-width: 2px;
+    border-style: dotted;
+    border-width: 0;
+    border-top-width: 3px;
+}
+
+.disco{
+    max-width: 200px;
+    max-height: 200px;
+    min-width: 200px;
+    min-height: 200px;
+    object-fit: cover;
 }
