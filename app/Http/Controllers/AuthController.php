@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\Usuario;
@@ -42,7 +43,7 @@ class AuthController extends Controller
         $email = trim($request->input('text-email'));
         $senha = trim($request->input('text-password'));
 
-        $senha = password_hash($senha,PASSWORD_ARGON2ID);
+        $senha = Hash::make($senha);
 
         $usuario = new Usuario();
         $usuario->user = $usuarioStr;
@@ -59,8 +60,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
-        return view("login",['isLoginFailed' => false]);
+        return view("login");
     }
 
 
@@ -85,7 +85,7 @@ class AuthController extends Controller
 
         $usuario = Usuario::searchByUser($user);
 
-        if(!password_verify($senha,$usuario->senha)){
+        if(!Hash::check($senha,$usuario->senha)){
             return view('login',['isLoginFailed' => true]);
         }
 
