@@ -52,7 +52,14 @@ class AuthController extends Controller
 
         $usuario->save();
 
-        Cookie::queue('conta',$usuario->id,60*24*365);
+        session(
+            [
+                'user' => [
+                    'id' => $usuario->id,
+                    'user' => $usuario->user,
+                ]
+            ]
+        );
 
         return redirect()->route('index');
 
@@ -92,15 +99,22 @@ class AuthController extends Controller
             // return view('login',['isLoginFailed' => true]);
         }
 
-        Cookie::queue('conta',$usuario->id,60*24*365);
+        session(
+            [
+                'user' => [
+                    'id' => $usuario->id,
+                    'user' => $usuario->user,
+                ]
+            ]
+        );
 
         return redirect()->route('index');
     }
 
 
     public function logout(Request $request){
-        Cookie::queue(Cookie::forget('conta'));
-        $request->session()->flush();
+
+        $request->session()->forget('user');
 
         return redirect()->route('login');
     }

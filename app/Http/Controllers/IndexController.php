@@ -10,8 +10,9 @@ class IndexController extends Controller
 {
     public function index(Request $request){
 
-        $usuario = Usuario::find((int)$request->cookie('conta'));
-        $discos = Disco::searchByUser((int)$request->cookie('conta'));
+        $usuario = Usuario::find((int)$request->session('')->get('user.id'));
+
+        $discos = $usuario ? Disco::searchByUser($usuario->id) : Disco::defaultDiscoQuery();
 
         return view("index",['discos' => $discos]);
     }

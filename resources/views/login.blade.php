@@ -17,7 +17,7 @@
                     
                     <div class="d-flex justify-content-between">
                         <div class="mb-3 d-flex justify-content-start">
-                            <img src={{asset('images/logo.png')}} alt="Discoteca" width="70" height="70">
+                            <img src={{asset('images/favicon.png')}} alt="Discoteca" width="70" height="70">
                             <h3 class="text-light mt-3">Discoteca</h3>
                         </div>
                         <div class="mt-2 form-group pull-right">

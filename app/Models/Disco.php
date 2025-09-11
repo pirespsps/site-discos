@@ -19,4 +19,11 @@ class Disco extends Model
             ->get();
     }
 
+    public static function defaultDiscoQuery(){
+        return DB::table('tb_disco')
+        ->select('tb_disco.*')
+        ->limit('20')
+        ->get();
+    }
+
 }

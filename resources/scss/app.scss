@@ -1,7 +1,9 @@
 @import 'bootstrap/scss/bootstrap';
 
 $primary: #D34A24;
+$primary-dark: #A23D22;
 $background: #3f414c;
+
 
 body{
     background-color: $background;
@@ -13,6 +15,25 @@ hr{
     border-style: dotted;
     border-width: 0;
     border-top-width: 3px;
+    opacity: 1;
+}
+
+ul{
+    position: absolute;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    li{
+        a{
+            margin: 0px;
+            padding: 0px;
+            text-align: center;
+        }
+    }
+}
+
+li:hover{
+    background-color: $primary-dark;
 }
 
 .disco{
@@ -21,4 +42,17 @@ hr{
     min-width: 200px;
     min-height: 200px;
     object-fit: cover;
+}
+
+#dropdown-header{
+    display: none;
+}
+
+#dropdown-header-parent{
+    transition: ease-in-out 3s;
+}
+
+#dropdown-header-parent:hover #dropdown-header{
+    cursor: pointer;
+    display: block;
 }
