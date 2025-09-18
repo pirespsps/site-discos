@@ -9,7 +9,21 @@ use Illuminate\Http\Request;
 class DiscoController extends Controller
 {
     public function index(Request $request){
-        return view("");
+        //mover pro show pós testes
+        $isListen = false; //inner join (mudar no banco depois para atributo na tbUserDisco)
+        $isLiked = true; // --
+        $hasCommentary = false; // --
+        $discos = Disco::defaultDiscoQuery();
+        $duracao = "44:08"; //inner join e soma
+
+        return view("disco.disco-view",[
+            'isListen' => $isListen,
+            'isLiked' => $isLiked,
+            'hasCommentary' => $hasCommentary,
+            'duracao' => $duracao,
+            'disco' => $discos[0]
+
+        ]);
     }
 
     public function show(Request $request, int $id){

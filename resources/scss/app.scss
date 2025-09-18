@@ -1,9 +1,18 @@
-@import 'bootstrap/scss/bootstrap';
-
 $primary: #D34A24;
 $primary-dark: #A23D22;
 $background: #3f414c;
+$background-dark: #25272a;
+$font-color: #d9d9d9;
 
+@import 'bootstrap/scss/bootstrap';
+
+.bg-dark{
+    background-color: $background-dark;
+}
+
+.text-default{
+    color: $font-color;
+}
 
 body{
     background-color: $background;
@@ -56,3 +65,4 @@ li:hover{
     cursor: pointer;
     display: block;
 }
+
