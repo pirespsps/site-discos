@@ -1,7 +1,7 @@
 @include('layouts.header')
 
 @yield('body')
-<div class="container w-100 h-100">
+<div class="container w-100 h-100 d-flex">
 
     <div class="bg-dark w-25 p-4 vh-100 justify-content-start d-block mt-3 mb-3 border border-primary">
         <img src="@yield('cover', 'default')" class="p-3 w-100 h-50 justify-content-center bg">
@@ -18,7 +18,7 @@
             <div class="stars">Sua Nota</div>
         </div>
 
-        <div class="text-default d-flex text-center mt-5 mb-5">
+        <div class="text-default d-flex text-center mt-5 mb-5"> <!--barra lateral-->
             <div>
                 @if (!$isListen)
                     <img class="w-75 h-50" src="{{ asset('images/whiteEarIcon.png') }}">
@@ -49,5 +49,24 @@
         </div>
 
     </div>
+
+    <div class="d-block text-default w-100 h-100">
+            
+            <div>
+                <div class="d-flex p-3 mx-3">
+                    <h1>@yield('titulo')</h1>
+                    <p>@yield('ano')</p>
+                </div>
+                <p>de @yield('banda')</p>
+                <p>cadastrado por @yield('usuario')</p>
+            
+            </div>
+
+            <div class="bg-dark mx-4 w-100"> <!--musicas-->
+                <h1 class="p-3">Músicas</h1>
+                
+            </div>
+
+        </div>
 
 </div>

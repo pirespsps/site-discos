@@ -26,4 +26,8 @@ class Disco extends Model
         ->get();
     }
 
+    public static function queryInspect(int $id){
+        //query com usuario, comentarios, musicas, banda
+    }
+
 }

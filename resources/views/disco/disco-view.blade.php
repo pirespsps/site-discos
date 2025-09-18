@@ -15,3 +15,19 @@
 @section('duracao')
     {{ $duracao }}
 @endsection
+
+@section('titulo')
+    {{ $disco->titulo }}
+@endsection
+
+@section('ano')
+    {{ $disco->ano }}
+@endsection
+
+@section('banda')
+    Banda
+@endsection
+
+@section('usuario')
+    Usuário
+@endsection
