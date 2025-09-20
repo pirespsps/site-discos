@@ -9,21 +9,9 @@ use Illuminate\Http\Request;
 class DiscoController extends Controller
 {
     public function index(Request $request){
-        //mover pro show pós testes
-        $isListen = false; //inner join (mudar no banco depois para atributo na tbUserDisco)
-        $isLiked = true; // --
-        $hasCommentary = false; // --
-        $discos = Disco::defaultDiscoQuery();
-        $duracao = "44:08"; //inner join e soma
 
-        return view("disco.disco-view",[
-            'isListen' => $isListen,
-            'isLiked' => $isLiked,
-            'hasCommentary' => $hasCommentary,
-            'duracao' => $duracao,
-            'disco' => $discos[0]
 
-        ]);
+        
     }
 
     public function show(Request $request, int $id){
@@ -31,10 +19,28 @@ class DiscoController extends Controller
         try{
             $disco = Disco::findOrFail($id);
         }catch(Exception $e){
-            //tratar erro
+            return view('not-found');
         }
 
-        return view("",['disco' => $disco]);
+        $musicas = [
+            ['música 1','duração'],
+            ['música 2','duração'],
+            ['música 3','duração'],
+        ];
+
+        $isListened = false; //inner join (mudar no banco depois para atributo na tbUserDisco)
+        $isLiked = true; // --
+        $hasCommentary = false; // --
+        $duracao = "44:08"; //soma duração das músicas
+
+        return view("disco.disco-view",[
+            'isListened' => $isListened,
+            'isLiked' => $isLiked,
+            'hasCommentary' => $hasCommentary,
+            'duracao' => $duracao,
+            'musicas' => $musicas,
+            'disco' => $disco
+        ]);
     }
 
     public function create(Request $request){

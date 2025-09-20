@@ -1,33 +1,14 @@
-@extends('layouts.view')
-
-@section('body')
-
-@endsection
-
-@section('cover')
-    {{ $disco->path_img }}
-@endsection
-
-@section('generos')
-    Grunge, Metal
-@endsection
-
-@section('duracao')
-    {{ $duracao }}
-@endsection
-
-@section('titulo')
-    {{ $disco->titulo }}
-@endsection
-
-@section('ano')
-    {{ $disco->ano }}
-@endsection
-
-@section('banda')
-    Banda
-@endsection
-
-@section('usuario')
-    Usuário
-@endsection
+@extends('layouts.view',[
+    'objeto' => $disco,
+    'generos' => "Grunge, Metal",
+    'cover' => $disco->path_img,
+    'duracao' => $duracao,
+    'titulo' => $disco->titulo,
+    'ano' => $disco->ano,
+    'banda' => "Banda",
+    'usuario' => "Usuário",
+    'isListened' => $isListened,
+    'isLiked' => $isLiked,
+    'hasCommentary' => $hasCommentary,
+    'multipleData' => $musicas
+])

@@ -6,7 +6,11 @@
     @vite(['resources/js/app.js','resources/scss/app.scss'])
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" type="image/x-icon">
-    <title>Discoteca</title>
+    @if (isset($titulo))
+        <title>{{ $titulo }}</title>
+    @else
+        <title>Discoteca</title>
+    @endif
 </head>
 <body>
 <div class="container-fluid bg-dark h-40 full-width-container m-0 p-0 align-content-center">
