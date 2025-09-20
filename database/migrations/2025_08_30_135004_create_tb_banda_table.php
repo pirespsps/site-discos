@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('local',100);
             $table->integer('ano');
             $table->string('path_img',200);
+            $table->foreignId('id_criador')->nullable(true)->constrained('tb_user')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

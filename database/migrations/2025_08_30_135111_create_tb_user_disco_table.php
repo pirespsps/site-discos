@@ -15,7 +15,10 @@ return new class extends Migration
         {
             $table->foreignId('id_user')->constrained('tb_user')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('id_disco')->constrained('tb_disco')->cascadeOnDelete()->cascadeOnUpdate();
-
+            $table->boolean('isLiked')->default(false);
+            $table->boolean('isListened')->default(false);
+            $table->boolean('hasCommentary')->default(false);
+            $table->integer('nota')->default(0);
             $table->primary(['id_user','id_disco']);
             $table->timestamps();
         });

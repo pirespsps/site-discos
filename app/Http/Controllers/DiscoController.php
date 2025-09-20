@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Disco;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -17,29 +19,35 @@ class DiscoController extends Controller
     public function show(Request $request, int $id){
         
         try{
-            $disco = Disco::findOrFail($id);
+            $disco = Disco::with(['banda','tracks','usuario'])->findOrFail($id);
         }catch(Exception $e){
             return view('not-found');
         }
 
-        $musicas = [
-            ['música 1','duração'],
-            ['música 2','duração'],
-            ['música 3','duração'],
-        ];
+        $musicas = [];
+        $duracaoTotal = 0;
 
-        $isListened = false; //inner join (mudar no banco depois para atributo na tbUserDisco)
-        $isLiked = true; // --
-        $hasCommentary = false; // --
-        $duracao = "44:08"; //soma duração das músicas
+        foreach($disco->tracks as $track){
+            [$h, $m, $s] = explode(':', $track->duracao);
+
+            $musicas[] = [$track->nome, sprintf('%02d:%02d', $m, $s),$track->id];
+
+            $duracaoTotal += $h * 60 * 60 + $m * 60 + $s;
+        }
+
+        $isListened = $disco->isListened;
+        $isLiked = $disco->isLiked;
+        $hasCommentary = $disco->hasCommentary; 
+
+        $dataFormatada = $duracaoTotal > (60*60)? gmdate('H:i:s',$duracaoTotal) : gmdate('i:s',$duracaoTotal);
 
         return view("disco.disco-view",[
             'isListened' => $isListened,
             'isLiked' => $isLiked,
             'hasCommentary' => $hasCommentary,
-            'duracao' => $duracao,
+            'duracao' => $dataFormatada,
             'musicas' => $musicas,
-            'disco' => $disco
+            'disco' => $disco,
         ]);
     }
 

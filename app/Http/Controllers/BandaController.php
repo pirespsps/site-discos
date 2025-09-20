@@ -15,12 +15,27 @@ class BandaController extends Controller
     public function show(Request $request, int $id){
         
         try{
-            $banda = Banda::findOrFail($id);
+            $banda = Banda::with(['discos','usuario'])->findOrFail($id);
         }catch(Exception $e){
-            //tratar erro
+            return view('not-found');
         }
 
-        return view("",['banda' => $banda]);
+        $discos = [];
+
+        foreach($banda->discos as $disco){
+            $discos[] = [$disco->titulo,$disco->ano,$disco->id];
+        }
+
+        $isLiked = $disco->isLiked;
+        $hasCommentary = $banda->hasCommentary; 
+
+        return view("banda.banda-view",[
+            'isLiked' => $isLiked,
+            'hasCommentary' => $hasCommentary,
+            'discos' => $discos,
+            'banda' => $banda,
+        ]);
+
     }
 
     public function create(Request $request){

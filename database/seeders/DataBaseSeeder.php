@@ -10,10 +10,11 @@ class DatabaseSeeder extends Seeder
     {
         // Chamar outras seeders aqui
         // $this->call(UserSeeder::class);
-        $this->call(tb_banda_seeder::class);
         $this->call(tb_user_seeder::class);
+        $this->call(tb_banda_seeder::class);
         $this->call(tb_disco_seeder::class);
         $this->call(tb_user_disco_seeder::class);
+        $this->call(tb_track_seeder::class);
 
     }
 }

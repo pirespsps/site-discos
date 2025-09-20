@@ -9,6 +9,24 @@ class Disco extends Model
 {
     protected $table = 'tb_disco';
 
+    public function banda(){
+        return $this->belongsTo(Banda::class,'id_banda');
+    }
+
+    public function tracks()
+    {
+        return $this->hasMany(Track::class, 'id_disco');
+    }
+
+    // public function comentarios(){
+    //     return $this->hasManyThrough(Comentario::class,'','','','');
+    // } fazer depois
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class,'id_criador','id');
+    }
+
     public static function searchByUser($id)
     {
         return DB::table('tb_disco')
@@ -19,15 +37,12 @@ class Disco extends Model
             ->get();
     }
 
-    public static function defaultDiscoQuery(){
+    public static function defaultDiscoQuery()
+    {
         return DB::table('tb_disco')
-        ->select('tb_disco.*')
-        ->limit('20')
-        ->get();
-    }
-
-    public static function queryInspect(int $id){
-        //query com usuario, comentarios, musicas, banda
+            ->select('tb_disco.*')
+            ->limit('20')
+            ->get();
     }
 
 }

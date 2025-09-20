@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_track', function (Blueprint $table) {
+        Schema::create('tb_disco_comentario', function (Blueprint $table) {
             $table->id();
-            $table->string('nome',255);
-            $table->time('duracao');
-            $table->foreignId('id_disco')->constrained('tb_disco')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tb_track');
+        Schema::dropIfExists('tb_disco_comentario');
     }
 };

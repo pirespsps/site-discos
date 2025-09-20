@@ -19,36 +19,43 @@ class tb_disco_seeder extends Seeder
                 'ano' => '1995',
                 'path_img' => 'images/discos/above.jpg',
                 'id_banda' => '1',
+                'id_criador' => '1',
             ],[
                 'titulo' => 'Dirt',
                 'ano' => '1992',
                 'path_img' => 'images/discos/dirt.jpg',
                 'id_banda' => '2',
+                'id_criador' => '1',
             ],[
                 'titulo' => 'Favourite Worst Nightmare',
                 'ano' => '2007',
                 'path_img' => 'images/discos/favourite-worst-nightmare.jpeg',
                 'id_banda' => '3',
+                'id_criador' => '1',
             ],[
                 'titulo' => 'Dissection',
                 'ano' => '1995',
                 'path_img' => 'images/discos/stormofthelightsbane.png',
                 'id_banda' => '4',
+                'id_criador' => '1',
             ],[
                 'titulo' => 'Blood and Thunder',
                 'ano' => '2004',
                 'path_img' => 'images/discos/bloodandthunder.jpg',
                 'id_banda' => '5',
+                'id_criador' => '1',
             ],[
                 'titulo' => 'OK Computer',
                 'ano' => '1997',
                 'path_img' => 'images/discos/okcomputer.jpg',
                 'id_banda' => '6',
+                'id_criador' => '1',
             ],[
                 'titulo' => 'Goo',
                 'ano' => '1990',
                 'path_img' => 'images/discos/goo.jpg',
                 'id_banda' => '7',
+                'id_criador' => '1',
             ]
         ]);
     }
