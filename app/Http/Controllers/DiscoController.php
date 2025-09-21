@@ -3,45 +3,57 @@
 namespace App\Http\Controllers;
 
 use App\Models\Disco;
-use Carbon\Carbon;
-use Carbon\CarbonInterval;
 use Exception;
 use Illuminate\Http\Request;
 
 class DiscoController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
 
+        $discos = Disco::with(['banda'])->get();
 
-        
+        $discosArray = [];
+        foreach($discos as $disco){
+            $discosArray[] = [
+                $disco->path_img,
+                $disco->titulo,
+                $disco->banda->nome,
+                $disco->id
+            ];
+        }
+        //fazer com pagination..
+
+        return view('disco.disco-list', ['discos' => $discosArray]);
     }
 
-    public function show(Request $request, int $id){
-        
-        try{
-            $disco = Disco::with(['banda','tracks','usuario'])->findOrFail($id);
-        }catch(Exception $e){
+    public function show(Request $request, int $id)
+    {
+
+        try {
+            $disco = Disco::with(['banda', 'tracks', 'usuario','usuarios'])->findOrFail($id);
+        } catch (Exception $e) {
             return view('not-found');
         }
 
         $musicas = [];
         $duracaoTotal = 0;
 
-        foreach($disco->tracks as $track){
+        foreach ($disco->tracks as $track) {
             [$h, $m, $s] = explode(':', $track->duracao);
 
-            $musicas[] = [$track->nome, sprintf('%02d:%02d', $m, $s),$track->id];
+            $musicas[] = [$track->nome, sprintf('%02d:%02d', $m, $s), $track->id];
 
             $duracaoTotal += $h * 60 * 60 + $m * 60 + $s;
         }
 
-        $isListened = $disco->isListened;
+        $isListened = $disco->isListened; //comparar $disco->usuarios com o id do usuario e trazer
         $isLiked = $disco->isLiked;
-        $hasCommentary = $disco->hasCommentary; 
+        $hasCommentary = $disco->hasCommentary;
 
-        $dataFormatada = $duracaoTotal > (60*60)? gmdate('H:i:s',$duracaoTotal) : gmdate('i:s',$duracaoTotal);
+        $dataFormatada = $duracaoTotal > (60 * 60) ? gmdate('H:i:s', $duracaoTotal) : gmdate('i:s', $duracaoTotal);
 
-        return view("disco.disco-view",[
+        return view("disco.disco-view", [
             'isListened' => $isListened,
             'isLiked' => $isLiked,
             'hasCommentary' => $hasCommentary,
@@ -51,37 +63,42 @@ class DiscoController extends Controller
         ]);
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
 
         return view("");
     }
 
-    public function store(Request $request){
-        
-        $disco = "salva o objeto";
+    public function store(Request $request)
+    {
 
-        return redirect()->route('discos.show',['id' => $disco->id]);
+        $disco = Disco::find(1);
+
+        return redirect()->route('discos.show', ['id' => $disco->id]);
     }
 
-    public function edit(Request $request,int $id){
+    public function edit(Request $request, int $id)
+    {
 
-        try{
+        try {
             $disco = Disco::findOrFail($id);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             //tratar erro
         }
 
-        return view("",['disco' => $disco]);
+        return view("", ['disco' => $disco]);
 
     }
 
-    public function update(Request $request, int $id){
-        $disco = "update disco";
+    public function update(Request $request, int $id)
+    {
+        $disco = Disco::find(1);
 
-        return redirect()->route('discos.show',['id' => $disco->id]);
+        return redirect()->route('discos.show', ['id' => $disco->id]);
     }
 
-    public function destroy(Request $request, int $id){
+    public function destroy(Request $request, int $id)
+    {
         Disco::destroy($id);
 
         return redirect()->route("discos.index");

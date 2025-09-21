@@ -27,6 +27,17 @@ class Disco extends Model
         return $this->belongsTo(Usuario::class,'id_criador','id');
     }
 
+    public function usuarios()
+    {
+        return $this->belongsToMany(
+            Usuario::class,
+            'tb_user_disco',
+        'id_disco',
+        'id_user')
+        ->withPivot(['isLiked','isListened','hasCommentary','nota'])
+        ->as('usuarios');
+    }
+
     public static function searchByUser($id)
     {
         return DB::table('tb_disco')

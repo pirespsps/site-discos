@@ -9,7 +9,20 @@ use Illuminate\Http\Request;
 class BandaController extends Controller
 {
     public function index(Request $request){
-        return view("");
+       $bandas = Banda::all();
+
+        $bandasArray = [];
+        foreach($bandas as $banda){
+            $bandasArray[] = [
+                $banda->path_img,
+                $banda->nome,
+                $banda->ano,
+                $banda->id
+            ];
+        }
+        //fazer com pagination..
+
+        return view('banda.banda-list', ['bandas' => $bandasArray]);
     }
 
     public function show(Request $request, int $id){
@@ -45,7 +58,7 @@ class BandaController extends Controller
 
     public function store(Request $request){
         
-        $banda = "salva o objeto";
+        $banda = Banda::find(1);
 
         return redirect()->route('bandas.show',['id' => $banda->id]);
     }
@@ -63,7 +76,7 @@ class BandaController extends Controller
     }
 
     public function update(Request $request, int $id){
-        $banda = "update banda";
+        $banda = Banda::find(1);
 
         return redirect()->route('bandas.show',['id' => $banda->id]);
     }
