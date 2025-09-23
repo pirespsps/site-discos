@@ -30,10 +30,10 @@ class DiscoController extends Controller
     public function show(Request $request, int $id)
     {
 
-        try {
-            $disco = Disco::with(['banda', 'tracks', 'usuario','usuarios'])->findOrFail($id);
-        } catch (Exception $e) {
-            return view('not-found');
+        try{
+            $disco = Disco::showQuery($id);
+        }catch(Exception $e){
+            return view('not-found',['erro' => $e->getMessage()]);
         }
 
         $musicas = [];
@@ -47,9 +47,9 @@ class DiscoController extends Controller
             $duracaoTotal += $h * 60 * 60 + $m * 60 + $s;
         }
 
-        $isListened = $disco->isListened; //comparar $disco->usuarios com o id do usuario e trazer
-        $isLiked = $disco->isLiked;
-        $hasCommentary = $disco->hasCommentary;
+        $isListened = $disco->usuarios[0]->pivot->isListened; //achar o usuario na lista (ou arrumar pra só trazer ele com a query)
+        $isLiked = $disco->usuarios[0]->pivot->isLiked;
+        $hasCommentary = $disco->usuarios[0]->pivot->hasCommentary;
 
         $dataFormatada = $duracaoTotal > (60 * 60) ? gmdate('H:i:s', $duracaoTotal) : gmdate('i:s', $duracaoTotal);
 

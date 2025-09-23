@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -22,7 +23,7 @@ class Disco extends Model
     //     return $this->hasManyThrough(Comentario::class,'','','','');
     // } fazer depois
 
-    public function usuario()
+    public function creator()
     {
         return $this->belongsTo(Usuario::class,'id_criador','id');
     }
@@ -34,8 +35,7 @@ class Disco extends Model
             'tb_user_disco',
         'id_disco',
         'id_user')
-        ->withPivot(['isLiked','isListened','hasCommentary','nota'])
-        ->as('usuarios');
+        ->withPivot(['isLiked','isListened','hasCommentary','nota']);
     }
 
     public static function searchByUser($id)
@@ -54,6 +54,15 @@ class Disco extends Model
             ->select('tb_disco.*')
             ->limit('20')
             ->get();
+    }
+
+    public static function showQuery($id){
+        try {
+            return Disco::with(['banda', 'tracks', 'creator','usuarios'])
+            ->findOrFail($id);//comentarios..
+        } catch (Exception $e) {
+            return -1;
+        }
     }
 
 }

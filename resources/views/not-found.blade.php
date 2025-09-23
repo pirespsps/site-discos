@@ -7,6 +7,9 @@
 <div class="alert bg-dark h-100 w-75 align-items-center text-center mx-auto mt-5">
 
     <h1 class="text-white">Página não encontrada</h1>
+    @if ($erro != null)
+        <p>{{ $erro }}</p>
+    @endif
     <br>
     <br>
     <a href="/">Clique para voltar para a página principal</a>

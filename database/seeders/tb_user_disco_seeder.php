@@ -43,5 +43,120 @@ class tb_user_disco_seeder extends Seeder
                 'id_disco' => '7',
             ],
         ]);
+
+        DB::table('tb_user_disco')->insert([
+            [
+                'id_user' => '2',
+                'id_disco' => '1',
+                'isLiked' => true,
+                'hasCommentary' => true,
+                'isListened' => true,
+                'nota' => '5'
+            ],
+            [
+                'id_user' => '2',
+                'id_disco' => '2',
+                'isLiked' => true,
+                'hasCommentary' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '2',
+                'id_disco' => '3',
+                'isLiked' => true,
+                'hasCommentary' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '2',
+                'id_disco' => '4',
+                'isLiked' => true,
+                'hasCommentary' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '2',
+                'id_disco' => '5',
+                'isLiked' => true,
+                'hasCommentary' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '2',
+                'id_disco' => '6',
+                'isLiked' => true,
+                'hasCommentary' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '2',
+                'id_disco' => '7',
+                'hasCommentary' => true,
+                'isLiked' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '3',
+                'id_disco' => '1',
+                'hasCommentary' => true,
+                'isLiked' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '3',
+                'id_disco' => '2',
+                'hasCommentary' => true,
+                'isLiked' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '3',
+                'id_disco' => '3',
+                'hasCommentary' => true,
+                'isLiked' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '3',
+                'id_disco' => '4',
+                'hasCommentary' => true,
+                'isLiked' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '3',
+                'id_disco' => '5',
+                'hasCommentary' => true,
+                'isLiked' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '3',
+                'id_disco' => '6',
+                'hasCommentary' => true,
+                'isLiked' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+            [
+                'id_user' => '3',
+                'id_disco' => '7',
+                'hasCommentary' => true,
+                'isLiked' => true,
+                'isListened' => true,
+                'nota' => 5
+            ],
+        ]);
     }
 }
