@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
         $this->call(tb_disco_seeder::class);
         $this->call(tb_user_disco_seeder::class);
         $this->call(tb_track_seeder::class);
+        $this->call(tb_tag_seeder::class);
+        $this->call(tb_tag_disco_seeder::class);
+        $this->call(tb_tag_banda_seeder::class);
 
     }
 }

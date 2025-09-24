@@ -8,7 +8,7 @@
 
     <h1 class="text-white">Página não encontrada</h1>
     @if ($erro != null)
-        <p>{{ $erro }}</p>
+        <p class="text-default">{{ $erro }}</p>
     @endif
     <br>
     <br>

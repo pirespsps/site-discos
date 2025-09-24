@@ -6,7 +6,7 @@
     <div class="bg-dark w-25 p-4 vh-100 justify-content-start d-block mt-3 mb-3 border border-primary">
         <img src="{{ asset($cover) }}" class="p-3 w-100 h-50 justify-content-center bg">
         <div class="text-default d-block">
-            <div>Gêneros: {{ $generos }}</div>
+            <div>Gêneros: {{ implode(', ',$tags) }}</div>
             @if ($type != "banda")
                 <div>Duração: {{ $duracao }}</div>
             @endif

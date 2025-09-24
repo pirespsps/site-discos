@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 
 class Banda extends Model
@@ -14,15 +15,31 @@ class Banda extends Model
         return $this->hasMany(Disco::class, 'id_banda');
     }
 
-    public function usuario()
+    public function creator()
     {
         return $this->belongsTo(Usuario::class,'id_criador','id');
+    }
+
+    public function usuarios()
+    {
+        return $this->belongsToMany(
+            Usuario::class,
+            'tb_user_banda',
+        'id_banda',
+        'id_user')
+        ->withPivot(['isLiked','isListened','hasCommentary','nota']);
+    } //arrumar e criar no banco
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class, 'tb_tag_banda','id_banda','id_tag');
     }
 
     // public function comentarios(){
     //     return $this->hasManyThrough(Comentario::class,'','','','');
     // } fazer depois
 
-    
+    public static function showQuery($id){
+        return $banda = Banda::with(['discos','creator','tags'])->findOrFail($id);
+    }
 
 }

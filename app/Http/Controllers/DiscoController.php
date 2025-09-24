@@ -36,6 +36,12 @@ class DiscoController extends Controller
             return view('not-found',['erro' => $e->getMessage()]);
         }
 
+        $tags = [];
+
+        foreach($disco->tags as $tag){
+            $tags[] = $tag->value;
+        }
+
         $musicas = [];
         $duracaoTotal = 0;
 
@@ -60,6 +66,7 @@ class DiscoController extends Controller
             'duracao' => $dataFormatada,
             'musicas' => $musicas,
             'disco' => $disco,
+            'tags' => $tags,
         ]);
     }
 

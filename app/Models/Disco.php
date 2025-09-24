@@ -19,6 +19,10 @@ class Disco extends Model
         return $this->hasMany(Track::class, 'id_disco');
     }
 
+    public function tags(){
+        return $this->belongsToMany(Tag::class, 'tb_tag_disco','id_disco','id_tag');
+    }
+
     // public function comentarios(){
     //     return $this->hasManyThrough(Comentario::class,'','','','');
     // } fazer depois
@@ -57,12 +61,9 @@ class Disco extends Model
     }
 
     public static function showQuery($id){
-        try {
-            return Disco::with(['banda', 'tracks', 'creator','usuarios'])
+            return Disco::with(['banda', 'tracks', 'creator','usuarios','tags'])
             ->findOrFail($id);//comentarios..
-        } catch (Exception $e) {
-            return -1;
-        }
+        
     }
 
 }

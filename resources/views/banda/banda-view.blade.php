@@ -1,10 +1,10 @@
 @extends('layouts.view',[
-    'generos' => "Grunge, Metal",
+    'tags' => $tags,
     'cover' => $banda->path_img,
     'titulo' => $banda->nome,
     'ano' => $banda->ano,
-    'usuario' => $banda->usuario->user,
-    'usuario_id' => $banda->usuario->id,
+    'usuario' => $banda->creator->user,
+    'usuario_id' => $banda->creator->id,
     'isLiked' => $isLiked,
     'hasCommentary' => $hasCommentary,
     'multipleData' => $discos,

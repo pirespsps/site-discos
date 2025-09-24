@@ -26,11 +26,17 @@ class BandaController extends Controller
     }
 
     public function show(Request $request, int $id){
-        
+
         try{
-            $banda = Banda::with(['discos','usuario'])->findOrFail($id);
+            $banda = Banda::showQuery($id);
         }catch(Exception $e){
-            return view('not-found');
+            return view('not-found',['erro' => $e->getMessage()]);
+        }
+
+        $tags = [];
+
+        foreach($banda->tags as $tag){
+            $tags[] = $tag->value;
         }
 
         $discos = [];
@@ -39,7 +45,7 @@ class BandaController extends Controller
             $discos[] = [$disco->titulo,$disco->ano,$disco->id];
         }
 
-        $isLiked = $disco->isLiked;
+        $isLiked = $disco->isLiked; //arruma pra pegar certo que nem no disco
         $hasCommentary = $banda->hasCommentary; 
 
         return view("banda.banda-view",[
@@ -47,6 +53,7 @@ class BandaController extends Controller
             'hasCommentary' => $hasCommentary,
             'discos' => $discos,
             'banda' => $banda,
+            'tags' => $tags,
         ]);
 
     }

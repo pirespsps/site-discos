@@ -1,5 +1,5 @@
 @extends('layouts.view',[
-    'generos' => "Grunge, Metal",
+    'tags' => $tags,
     'cover' => $disco->path_img,
     'duracao' => $duracao,
     'titulo' => $disco->titulo,
