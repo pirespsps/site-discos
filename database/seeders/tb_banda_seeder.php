@@ -32,7 +32,7 @@ class tb_banda_seeder extends Seeder
                 'nome' => 'Arctic Monkeys',
                 'local' => 'Reino Unido',
                 'ano' => '2002',
-                'path_img' => 'images/bandas/arcticmonekys.jpg',
+                'path_img' => 'images/bandas/arcticmonkeys.jpg',
                 'id_criador' => '1',
             ],
             [

@@ -53,6 +53,17 @@ class DiscoController extends Controller
             $duracaoTotal += $h * 60 * 60 + $m * 60 + $s;
         }
 
+        $comentarios = [];
+
+        foreach($disco->comentarios as $comentario){
+            $comentarios[] = [
+                $comentario->id_user,
+                $comentario->usuario->user,
+                $comentario->usuario->path_img,
+                $comentario->texto
+            ]; //id do user, user, texto
+        }
+
         $isListened = $disco->usuarios[0]->pivot->isListened; //achar o usuario na lista (ou arrumar pra só trazer ele com a query)
         $isLiked = $disco->usuarios[0]->pivot->isLiked;
         $hasCommentary = $disco->usuarios[0]->pivot->hasCommentary;
@@ -67,6 +78,7 @@ class DiscoController extends Controller
             'musicas' => $musicas,
             'disco' => $disco,
             'tags' => $tags,
+            'comentarios' => $comentarios,
         ]);
     }
 

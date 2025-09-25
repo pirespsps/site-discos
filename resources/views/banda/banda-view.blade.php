@@ -8,6 +8,7 @@
     'isLiked' => $isLiked,
     'hasCommentary' => $hasCommentary,
     'multipleData' => $discos,
+    'comentarios' => $comentarios,
     'type' => 'banda'
 ])
 

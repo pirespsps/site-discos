@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tb_user', function (Blueprint $table) {
             $table->id();
+            $table->string('path_img',200)->default('images/usuarioIcon.png');
             $table->string('user',25);
             $table->string('email',30);
             $table->string('senha',255);

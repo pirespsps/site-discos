@@ -55,7 +55,7 @@
             </div>
             @if ($type != 'banda')
                 <p>de
-                    <a href="/bandas/{{ $banda_id }}" class="text-white text-decoration-none">{{ $banda }}</a>
+                    <a href="{{ route('bandas.show',['banda' => 1]) }}" class="text-white text-decoration-none">{{ $banda }}</a>
                 </p>
             @endif
             <p>cadastrado por
@@ -100,6 +100,20 @@
 
             </div>
         @endif
+
+        <div>
+            @foreach ($comentarios as [$id,$usuario,$icon,$texto])
+                <div class="bg-dark p-1 mx-4 mb-3 rounded">
+                    <a class="text-decoration-none" href="#{{ $id }}">
+                        <div class="w-25">
+                            <img class="w-25" src="{{asset($icon)}}">
+                            {{ $usuario }}
+                        </div>
+                    </a>
+                    <p>{{ $texto }}</p>
+                </div>
+            @endforeach
+        </div> <!--paginate-->
 
     </div>
 

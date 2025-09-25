@@ -45,6 +45,17 @@ class BandaController extends Controller
             $discos[] = [$disco->titulo,$disco->ano,$disco->id];
         }
 
+        $comentarios = [];
+
+        foreach($banda->comentarios as $comentario){
+            $comentarios[] = [
+                $comentario->id_user,
+                $comentario->usuario->user,
+                $comentario->usuario->path_img,
+                $comentario->texto
+            ];
+        }
+
         $isLiked = $disco->isLiked; //arruma pra pegar certo que nem no disco
         $hasCommentary = $banda->hasCommentary; 
 
@@ -54,6 +65,7 @@ class BandaController extends Controller
             'discos' => $discos,
             'banda' => $banda,
             'tags' => $tags,
+            'comentarios' => $comentarios,
         ]);
 
     }

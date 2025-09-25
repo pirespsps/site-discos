@@ -34,12 +34,12 @@ class Banda extends Model
         return $this->belongsToMany(Tag::class, 'tb_tag_banda','id_banda','id_tag');
     }
 
-    // public function comentarios(){
-    //     return $this->hasManyThrough(Comentario::class,'','','','');
-    // } fazer depois
+    public function comentarios(){
+        return $this->belongsToMany(Comentario::class,'tb_comentario_banda','id_banda','id_comentario');
+    }
 
     public static function showQuery($id){
-        return $banda = Banda::with(['discos','creator','tags'])->findOrFail($id);
+        return $banda = Banda::with(['discos','creator','tags','comentarios'])->findOrFail($id);
     }
 
 }
