@@ -27,7 +27,7 @@ class Disco extends Model
         return $this->belongsToMany(Comentario::class,'tb_comentario_disco','id_disco','id_comentario');
     } 
 
-    public function creator()
+    public function criador()
     {
         return $this->belongsTo(Usuario::class,'id_criador','id');
     }
@@ -61,7 +61,7 @@ class Disco extends Model
     }
 
     public static function showQuery($id,$id_user){
-            return Disco::with(['banda', 'tracks', 'creator','usuario','tags','comentarios'])
+            return Disco::with(['banda', 'tracks', 'criador','usuario','tags','comentarios'])
             ->findOrFail($id);
         }
 

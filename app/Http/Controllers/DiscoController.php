@@ -36,8 +36,6 @@ class DiscoController extends Controller
             return view('not-found',['erro' => $e->getMessage()]);
         }
 
-        dd($disco->usuario);
-
         $tags = [];
 
         foreach($disco->tags as $tag){
@@ -66,12 +64,10 @@ class DiscoController extends Controller
             ];
         }
 
-        dd($disco);
 
-
-        $isListened = $disco->usuario->pivot->isListened; //achar o usuario na lista (ou arrumar pra só trazer ele com a query)
-        $isLiked = $disco->usuario->pivot->isLiked;
-        $hasCommentary = $disco->usuario->pivot->hasCommentary;
+        $isListened = $disco->usuario[0]->pivot->isListened; //achar o usuario na lista (ou arrumar pra só trazer ele com a query)
+        $isLiked = $disco->usuario[0]->pivot->isLiked;
+        $hasCommentary = $disco->usuario[0]->pivot->hasCommentary;
 
         $dataFormatada = $duracaoTotal > (60 * 60) ? gmdate('H:i:s', $duracaoTotal) : gmdate('i:s', $duracaoTotal);
 

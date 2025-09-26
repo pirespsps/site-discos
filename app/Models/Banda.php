@@ -15,7 +15,7 @@ class Banda extends Model
         return $this->hasMany(Disco::class, 'id_banda');
     }
 
-    public function creator()
+    public function criador()
     {
         return $this->belongsTo(Usuario::class,'id_criador','id');
     }
@@ -39,7 +39,7 @@ class Banda extends Model
     }
 
     public static function showQuery($id){
-        return $banda = Banda::with(['discos','creator','tags','comentarios'])->findOrFail($id);
+        return $banda = Banda::with(['discos','criador','tags','comentarios'])->findOrFail($id);
     }
 
 }
