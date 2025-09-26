@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tb_user_banda', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('id_user')->constrained('tb_user')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('id_banda')->constrained('tb_banda')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->boolean('isLiked')->default(false);
+            $table->boolean('hasCommentary')->default(false);
+            $table->primary(['id_user','id_banda']);
             $table->timestamps();
         });
     }

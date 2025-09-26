@@ -32,7 +32,7 @@ class Disco extends Model
         return $this->belongsTo(Usuario::class,'id_criador','id');
     }
 
-    public function usuarios()
+    public function usuario()
     {
         return $this->belongsToMany(
             Usuario::class,
@@ -60,10 +60,9 @@ class Disco extends Model
             ->get();
     }
 
-    public static function showQuery($id){
-            return Disco::with(['banda', 'tracks', 'creator','usuarios','tags','comentarios'])
+    public static function showQuery($id,$id_user){
+            return Disco::with(['banda', 'tracks', 'creator','usuario','tags','comentarios'])
             ->findOrFail($id);
-        
-    }
+        }
 
 }
