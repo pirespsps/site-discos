@@ -64,10 +64,17 @@ class DiscoController extends Controller
             ];
         }
 
+        if($disco->usuario != null){
 
-        $isListened = $disco->usuario[0]->pivot->isListened; //achar o usuario na lista (ou arrumar pra só trazer ele com a query)
-        $isLiked = $disco->usuario[0]->pivot->isLiked;
-        $hasCommentary = $disco->usuario[0]->pivot->hasCommentary;
+            $isListened = $disco->usuario->pivot->isListened;
+            $isLiked = $disco->usuario->pivot->isLiked;
+            $hasCommentary = $disco->usuario->pivot->hasCommentary;
+
+        }else{
+            $isListened = false;
+            $isLiked = false;
+            $hasCommentary = false;
+        }
 
         $dataFormatada = $duracaoTotal > (60 * 60) ? gmdate('H:i:s', $duracaoTotal) : gmdate('i:s', $duracaoTotal);
 

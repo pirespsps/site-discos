@@ -28,7 +28,7 @@ class BandaController extends Controller
     public function show(Request $request, int $id){
 
         try{
-            $banda = Banda::showQuery($id);
+            $banda = Banda::showQuery($id,session()->get('user.id'));
         }catch(Exception $e){
             return view('not-found',['erro' => $e->getMessage()]);
         }
@@ -56,8 +56,15 @@ class BandaController extends Controller
             ];
         }
 
-        $isLiked = $disco->isLiked; //arruma pra pegar certo que nem no disco
-        $hasCommentary = $banda->hasCommentary; 
+        if($banda->usuario != null){
+
+            $isLiked = $banda->usuario->pivot->isLiked; //arruma pra pegar certo que nem no disco
+            $hasCommentary = $banda->usuario->pivot->hasCommentary;
+        
+        }else{
+            $isLiked = false;
+            $hasCommentary = false;
+        }
 
         return view("banda.banda-view",[
             'isLiked' => $isLiked,

@@ -20,15 +20,15 @@ class Banda extends Model
         return $this->belongsTo(Usuario::class,'id_criador','id');
     }
 
-    public function usuarios()
+    public function usuario()
     {
         return $this->belongsToMany(
             Usuario::class,
             'tb_user_banda',
         'id_banda',
         'id_user')
-        ->withPivot(['isLiked','isListened','hasCommentary','nota']);
-    } //arrumar e criar no banco
+        ->withPivot(['isLiked','hasCommentary']);
+    }
 
     public function tags(){
         return $this->belongsToMany(Tag::class, 'tb_tag_banda','id_banda','id_tag');
@@ -38,8 +38,12 @@ class Banda extends Model
         return $this->belongsToMany(Comentario::class,'tb_comentario_banda','id_banda','id_comentario');
     }
 
-    public static function showQuery($id){
-        return $banda = Banda::with(['discos','criador','tags','comentarios'])->findOrFail($id);
+    public static function showQuery($id,$id_user = 0){
+        $banda = Banda::with(['discos','criador','tags','comentarios','usuario'])
+        ->findOrFail($id);
+        $id_user != 0? $banda->usuario = $banda->usuario->find($id_user) : $banda->usuario = null;
+        
+        return $banda;
     }
 
 }

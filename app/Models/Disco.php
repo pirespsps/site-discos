@@ -60,9 +60,13 @@ class Disco extends Model
             ->get();
     }
 
-    public static function showQuery($id,$id_user){
-            return Disco::with(['banda', 'tracks', 'criador','usuario','tags','comentarios'])
+    public static function showQuery($id,$id_user=0){
+            $disco =  Disco::with(['banda', 'tracks', 'criador','usuario','tags','comentarios'])
             ->findOrFail($id);
+
+            $id_user != 0? $disco->usuario = $disco->usuario->find($id_user) : $disco->usuario = null;
+
+            return $disco;
         }
 
 }
