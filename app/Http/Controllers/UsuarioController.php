@@ -24,9 +24,16 @@ class UsuarioController extends Controller
 
         $cards = $this->makeCards($usuario->discos);
 
+        $discos = [];
+
+        foreach($usuario->discos as $disco){
+            $discos[] = [$disco->titulo,$disco->path_img,$disco->id];
+        }
+
         return view('usuario.usuario-view', [
             'usuario' => $usuario,
-            'cards' => $cards
+            'cards' => $cards,
+            'discos' => $discos,
         ]);
     }
 
@@ -71,12 +78,16 @@ class UsuarioController extends Controller
         return redirect()->route("usuarios.index");
     }
 
-    private function makeCards($discos){
+    private function makeCards($discos, $limit = 5){
 
         $currentBand = 0;
         $cards = [];
 
         foreach($discos as $disco){
+
+            if(sizeof($cards) >= $limit){
+                break;
+            }
             
             if($currentBand != $disco->banda->id){
                 $cards[$disco->banda->id] = [

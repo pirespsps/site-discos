@@ -11,7 +11,8 @@
     </div>
 
     <div class="w-50 mx-3">
-        <button class="tab-item text-default btn link-primary " onclick="openTab(event, 'Tudo')" id="defaultOpen">Tudo</button>
+        <button class="tab-item text-default btn link-primary " onclick="openTab(event, 'Tudo')"
+            id="defaultOpen">Tudo</button>
         <button class="tab-item text-default btn " onclick="openTab(event, 'Bandas')">Bandas</button>
         <button class="tab-item text-default btn " onclick="openTab(event, 'Discos')">Discos</button>
         <button class="tab-item text-default btn " onclick="openTab(event, 'Logs')">Logs</button>
@@ -23,26 +24,27 @@
 
 <div id="Tudo" class="tab-content">
     @foreach ($cards as $card)
-    <div class="bg-dark w-75 rounded m-2 d-flex">
-        <div class="w-100 h-100 d-block">
-        <a class="text-default text-decoration-none" href="{{ route('bandas.show',['banda' => $card['banda_id']]) }}">
-        <h1 class="mx-5">{{ $card['banda'] }}</h1>
-        <img class="w-50 mx-3 rounded p-2" src="{{ asset($card['banda_img']) }}">
-        </a>
-        </div>
-
-        <div class="d-flex mt-5">
-        @foreach ($card['discos'] as [$titulo, $image, $id])
-            <div class="h-50 w-50 d-block mx-3">
-                <a class="text-default text-decoration-none" href="{{ route('discos.show',['disco' => $id]) }}">
-                <img class="w-25 rounded" src="{{ asset($image) }}">
-                <p class="">{{ $titulo }}</p>
+        <div class="bg-dark w-75 rounded m-2 d-flex border border-primary">
+            <div class="w-100 h-100 d-block">
+                <a class="text-default text-decoration-none"
+                    href="{{ route('bandas.show', ['banda' => $card['banda_id']]) }}">
+                    <h2 class="mx-5">{{ $card['banda'] }}</h2>
+                    <img class="w-50 mx-3 rounded p-2" src="{{ asset($card['banda_img']) }}">
                 </a>
             </div>
-        @endforeach
-        </div>
 
-    </div>
+            <div class="d-flex mt-5">
+                @foreach ($card['discos'] as [$titulo, $image, $id])
+                    <div class="h-50 w-50 d-block mx-3">
+                        <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $id]) }}">
+                            <img class="w-25 rounded" src="{{ asset($image) }}">
+                            <p class="">{{ $titulo }}</p>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+
+        </div>
     @endforeach
 </div>
 
@@ -51,7 +53,20 @@
 </div>
 
 <div id="Discos" class="tab-content">
-    <h1>Discos</h1>
+
+    <div class="d-flex w-100 h-100">
+
+        @foreach ($discos as [$titulo, $image, $id])
+
+                <div class="h-50 w-50 text-default">
+                    <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $id]) }}">
+                        <img class="h-75 w-75" src="{{ asset($image) }}">
+                        <p>{{ $titulo }}</p>
+                    </a>
+                </div>
+
+        @endforeach
+    </div>
 </div>
 
 <div id="Logs" class="tab-content">
