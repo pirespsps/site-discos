@@ -22,7 +22,28 @@
 <!-- Tabs -->
 
 <div id="Tudo" class="tab-content">
-    <h1>Olha lá</h1>
+    @foreach ($cards as $card)
+    <div class="bg-dark w-75 rounded m-2 d-flex">
+        <div class="w-100 h-100 d-block">
+        <a class="text-default text-decoration-none" href="{{ route('bandas.show',['banda' => $card['banda_id']]) }}">
+        <h1 class="mx-5">{{ $card['banda'] }}</h1>
+        <img class="w-50 mx-3 rounded p-2" src="{{ asset($card['banda_img']) }}">
+        </a>
+        </div>
+
+        <div class="d-flex mt-5">
+        @foreach ($card['discos'] as [$titulo, $image, $id])
+            <div class="h-50 w-50 d-block mx-3">
+                <a class="text-default text-decoration-none" href="{{ route('discos.show',['disco' => $id]) }}">
+                <img class="w-25 rounded" src="{{ asset($image) }}">
+                <p class="">{{ $titulo }}</p>
+                </a>
+            </div>
+        @endforeach
+        </div>
+
+    </div>
+    @endforeach
 </div>
 
 <div id="Bandas" class="tab-content">

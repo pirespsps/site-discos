@@ -22,8 +22,11 @@ class UsuarioController extends Controller
             return view('not-found', ['erro' => $e]);
         }
 
+        $cards = $this->makeCards($usuario->discos);
+
         return view('usuario.usuario-view', [
             'usuario' => $usuario,
+            'cards' => $cards
         ]);
     }
 
@@ -66,5 +69,31 @@ class UsuarioController extends Controller
         Usuario::destroy($id);
 
         return redirect()->route("usuarios.index");
+    }
+
+    private function makeCards($discos){
+
+        $currentBand = 0;
+        $cards = [];
+
+        foreach($discos as $disco){
+            
+            if($currentBand != $disco->banda->id){
+                $cards[$disco->banda->id] = [
+                'banda' => $disco->banda->nome,
+                'banda_img' => $disco->banda->path_img,
+                'banda_id' => $disco->banda->id,
+                'discos' => [[$disco->titulo,$disco->path_img,$disco->id]]
+            ];
+            
+            $currentBand = $disco->banda->id;
+
+            }else{
+                array_push($cards[$disco->banda->id]['discos'],[$disco->titulo,$disco->path_img,$disco->id]);
+            }
+        }
+
+        return $cards;
+
     }
 }
