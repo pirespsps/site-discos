@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BandaController;
 use App\Http\Controllers\DiscoController;
+use App\Http\Controllers\TrackController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
@@ -17,6 +19,8 @@ Route::get("/logout",[AuthController::class,"logout"])->name('logout');
 
 Route::resource('discos',DiscoController::class);
 Route::resource('bandas',BandaController::class);
+Route::resource('tracks',TrackController::class);
+Route::resource('usuarios',UsuarioController::class);
 
 // //read
 // Route::get("/inspecionar/discos",[DiscoController::class,"read"]);

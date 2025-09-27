@@ -69,11 +69,13 @@ class DiscoController extends Controller
             $isListened = $disco->usuario->pivot->isListened;
             $isLiked = $disco->usuario->pivot->isLiked;
             $hasCommentary = $disco->usuario->pivot->hasCommentary;
+            $nota = $disco->usuario->pivot->nota;
 
         }else{
             $isListened = false;
             $isLiked = false;
             $hasCommentary = false;
+            $nota = 0;
         }
 
         $dataFormatada = $duracaoTotal > (60 * 60) ? gmdate('H:i:s', $duracaoTotal) : gmdate('i:s', $duracaoTotal);
@@ -87,6 +89,7 @@ class DiscoController extends Controller
             'disco' => $disco,
             'tags' => $tags,
             'comentarios' => $comentarios,
+            'nota' => $nota
         ]);
     }
 

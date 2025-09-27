@@ -10,6 +10,7 @@
     'usuario_id' => $disco->criador->id,
     'isListened' => $isListened,
     'isLiked' => $isLiked,
+    'nota' => $nota,
     'hasCommentary' => $hasCommentary,
     'multipleData' => $musicas,
     'comentarios' => $comentarios,
