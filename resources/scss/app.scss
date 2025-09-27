@@ -66,3 +66,15 @@ li:hover{
     display: block;
 }
 
+.tab-content{
+    @extend .text-default;
+    margin-left: 35px;
+    margin-top: 10px;
+    display: none;
+    animation: fadeEffect 0.666s;
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

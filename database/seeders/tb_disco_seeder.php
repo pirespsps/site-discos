@@ -56,7 +56,13 @@ class tb_disco_seeder extends Seeder
                 'path_img' => 'images/discos/goo.jpg',
                 'id_banda' => '7',
                 'id_criador' => '1',
-            ]
+            ],[
+                'titulo' => 'Jar of Flies',
+                'ano' => '1994',
+                'path_img' => 'images/discos/jarofflies.jpg',
+                'id_banda' => '2',
+                'id_criador' => '1',
+            ],
         ]);
     }
 }

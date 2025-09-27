@@ -41,6 +41,9 @@ class tb_user_disco_seeder extends Seeder
             [
                 'id_user' => '1',
                 'id_disco' => '7',
+            ],[
+                'id_user' => '1',
+                'id_disco' => '8',
             ],
         ]);
 

@@ -32,7 +32,7 @@
                     <div id= "dropdown-header-parent">
                         <img class="mt-4 mx-5" src="{{asset('images/usuarioIcon.png')}}" width="40" height="40">
                             <ul class= "bg-primary justify-content-start rounded-2" id="dropdown-header">
-                                <li class="text-light text-center mx-2 justify-content-between mt-1 mb-1"><a class="text-light mt-4 mx-3 text-decoration-none" href = {{route('index') }}>Perfil</a></li>
+                                <li class="text-light text-center mx-2 justify-content-between mt-1 mb-1"><a class="text-light mt-4 mx-3 text-decoration-none" href = {{route('usuarios.show',['usuario' => session()->get('user.id')]) }}>Perfil</a></li>
                                 <li class="text-light text-center mx-2 justify-content-between mt-1 mb-1"><a class="text-light mt-4 mx-3 text-decoration-none" href = {{route('index') }}>Amigos</a></li>
                                 <li class="text-light text-center mx-2 justify-content-between mt-1 mb-1"><a class="text-light mt-4 mx-3 text-decoration-none" href = {{route('logout') }}>Sair</a></li>
                             </ul>

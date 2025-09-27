@@ -39,8 +39,7 @@ class Disco extends Model
             'tb_user_disco',
         'id_disco',
         'id_user')
-        ->withPivot(['isLiked','isListened','hasCommentary','nota'])
-        ->as('pivot');
+        ->withPivot(['isLiked','isListened','hasCommentary','nota']);
     }
 
     public static function searchByUser($id)

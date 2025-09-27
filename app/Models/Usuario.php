@@ -3,17 +3,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Usuario extends Model
 {
     protected $table = 'tb_user';
+
+    public function discos(){
+        return Usuario::belongsToMany(
+            Disco::class,
+            'tb_user_disco',
+            'id_user',
+            'id_disco',)
+        ->withPivot(['isLiked','nota'])
+        ->orderBy('tb_disco.id_banda');
+    }
 
     public static function searchByUser($user){
         return self::where('user',$user)->get()->first();
     }
 
     public static function showQuery($id){
-        return Usuario::findOrFail($id);
+        return Usuario::with(['discos'])->findOrFail($id);
     }
     
 }
