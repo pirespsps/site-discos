@@ -12,7 +12,7 @@
             @endif
         </div>
         <div class="text-default d-block text-center">
-            <div class="stars"><!-- botar pra deixar as estrelas dinamicas depois -->
+            <div class="stars"><!-- botar pra deixar as estrelas dinamicas depois, tratar para track -->
                 @for ($i = 1; $i <= 5; $i++)
                     <img class="w-25 h-25" src="{{ asset('images/whiteStarIcon.png') }}">
                 @endfor
@@ -26,7 +26,7 @@
                 <div>
                     <img class="w-75 h-50"
                         src="{{ asset('images/' . ($isListened ? 'primaryEarIcon' : 'whiteEarIcon') . '.png')}}">
-                    <p>Ouvir Depois</p>
+                    <p>Escutado</p>
                 </div>
             @endif
 
@@ -36,11 +36,13 @@
                 <p>Favoritar</p>
             </div>
 
-            <div>
-                <img class="w-75 h-50"
-                    src="{{ asset('images/' . ($hasCommentary ? 'primaryCommentaryIcon' : 'whiteCommentaryIcon') . '.png')}}">
-                <p>Comentar</p>
-            </div>
+            @if (isset($hasCommentary))
+                <div>
+                    <img class="w-75 h-50"
+                        src="{{ asset('images/' . ($hasCommentary ? 'primaryCommentaryIcon' : 'whiteCommentaryIcon') . '.png')}}">
+                    <p>Comentar</p>
+                </div>
+            @endif
 
         </div>
 
@@ -53,9 +55,16 @@
                 <h1>{{ $titulo }}</h1>
                 <p>{{ $ano }}</p>
             </div>
+
+            @if($type == 'track')
+                <p>pertence a
+                    <a href="{{ route('discos.show',['disco' =>  $disco_id ]) }}" class="text-white text-decoration-none">{{ $disco }}</a>
+                </p>
+            @endif
+
             @if ($type != 'banda')
                 <p>de
-                    <a href="{{ route('bandas.show',['banda' => 1]) }}" class="text-white text-decoration-none">{{ $banda }}</a>
+                    <a href="{{ route('bandas.show',['banda' => $banda_id]) }}" class="text-white text-decoration-none">{{ $banda }}</a>
                 </p>
             @endif
             <p>cadastrado por
@@ -87,7 +96,7 @@
                     @foreach ($multipleData as [$titulo, $valor, $id])
                         <tr>
                             <td>
-                                <a href="/{{ $type == 'banda' ? "discos" : "musicas" }}/{{ $id }}"
+                                <a href="/{{ $type == 'banda' ? "discos" : "tracks" }}/{{ $id }}"
                                     class="text-decoration-none text-default">
                                     {{$titulo}}
                                 </a>

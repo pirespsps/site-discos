@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Track;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 
 class TrackController extends Controller{
@@ -13,6 +15,50 @@ class TrackController extends Controller{
 
     public function show(Request $request, int $id){
 
+        try{
+            $track = Track::showQuery($id,session()->get('user.id'));
+        }catch(Exception $e){
+            return view('not-found',['erro' => $e->getMessage()]);
+        }
+
+        $tags = [];
+
+        foreach($track->disco->tags as $tag){
+            $tags[] = $tag->value;
+        }
+
+        $comentarios = [];
+
+        foreach($track->comentarios as $comentario){
+            $comentarios[] = [
+                $comentario->id_user,
+                $comentario->usuario->user,
+                $comentario->usuario->path_img,
+                $comentario->texto
+            ];
+        }
+
+        if($track->disco->usuario != null){
+
+            $isListened = $track->disco->usuario->pivot->isListened;
+            $isLiked = $track->disco->usuario->pivot->isLiked;
+        }else{
+            $isListened = false;
+            $isLiked = false;
+        }
+
+        $duracao = new Carbon($track->duracao);
+
+        $duracaoFormatada = $track->duracao > (60 * 60) ? $duracao->format('H:i:s') : $duracao->format('i:s');
+
+        return view('track.track-view',[
+            'track' => $track,
+            'tags' => $tags,
+            'comentarios' => $comentarios,
+            'isListened' => $isListened,
+            'isLiked' => $isLiked,
+            'duracao' => $duracaoFormatada
+        ]);
     }
 
     public function create(Request $request){

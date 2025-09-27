@@ -13,6 +13,7 @@ class UsuarioController extends Controller
 
     public function show(Request $request, int $id){
 
+        
     }
 
     public function create(Request $request){
