@@ -82,7 +82,28 @@
 </div>
 
 <div id="Logs" class="tab-content">
-    <h1>Logs</h1>
+    @foreach ($logs as $log)
+        <div class="h-25 w-50 bg-dark d-flex rounded mt-3 {{ $log['isLiked']? 'border border-primary' : '' }}">
+            <div class="d-block h-50 w-25">
+                <a class="text-default text-decoration-none" href="{{ route('discos.show',['disco' => $log['id']])}}">
+                <h3 class="w-100 mx-2">{{ $log['disco'] }}</h3>
+                <img class="h-50 w-50 p-2" src="{{ asset($log['img']) }}">
+                </a>
+            </div>
+            <div class="h-25 w-100 d-flex mx-3">
+                @for ($i = 0;$i < $log['nota'];$i++)
+                    <div class="w-25 h-25">
+                        <img class="h-25 w-25" src="{{ asset('images/primaryStarIcon.png') }}">
+                    </div>
+                @endfor
+            </div>
+            @if ($log['isLiked'])
+                    <div class="w-25 h-25">
+                        <img class="h-25 w-25 mx-5 mt-2" src="{{ asset('images/primaryHeartIcon.png') }}">
+                    </div>
+                @endif
+        </div>
+    @endforeach
 </div>
 
 <div id="Comentarios" class="tab-content">

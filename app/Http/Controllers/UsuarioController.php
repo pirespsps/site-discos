@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+
+    public const DEFAULT_NOTA = 0;
+    public const DEFAULT_CARD_LIMIT = 5;
+
     public function index(Request $request)
     {
 
@@ -22,11 +26,26 @@ class UsuarioController extends Controller
             return view('not-found', ['erro' => $e]);
         }
 
+        $discos = [];
         $bandas = [];
+        $logs = [];
         $currentBanda = 0;
         
         //discos são ordenados pelo id da banda
         foreach($usuario->discos as $disco){
+
+            //$disco->pivot->nota != self::DEFAULT_NOTA
+            if($disco->pivot->nota != self::DEFAULT_NOTA){
+                array_push($logs,[
+                    'disco' => $disco->titulo,
+                    'img' => $disco->path_img,
+                    'id' => $disco->id,
+                    'nota' => $disco->pivot->nota,
+                    'isLiked' => $disco->pivot->isLiked,
+                ]);
+            }
+
+            $discos[] = [$disco->titulo,$disco->path_img,$disco->id];
             
             $banda = $disco->banda;
 
@@ -39,19 +58,14 @@ class UsuarioController extends Controller
 
         }
 
-        $discos = [];
-
-        foreach($usuario->discos as $disco){
-            $discos[] = [$disco->titulo,$disco->path_img,$disco->id];
-        }
-
         $cards = $this->makeCards($usuario->discos);
 
-        return view('usuario.usuario-view', [
+        return view('usuario.usuario-view', [ //ordenar tudo por created_at depois
             'usuario' => $usuario,
             'cards' => $cards,
             'discos' => $discos,
             'bandas' => $bandas,
+            'logs' => $logs,
         ]);
     }
 
@@ -96,12 +110,12 @@ class UsuarioController extends Controller
         return redirect()->route("usuarios.index");
     }
 
-    private function makeCards($discos, $limit = 5){
+    private function makeCards($discos, $limit = self::DEFAULT_CARD_LIMIT){
 
         $currentBand = 0;
         $cards = [];
 
-        foreach($discos as $disco){ //ordernar por created_at depois
+        foreach($discos as $disco){
 
             if(sizeof($cards) >= $limit){
                 break;

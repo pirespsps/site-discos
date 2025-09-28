@@ -17,33 +17,49 @@ class tb_user_disco_seeder extends Seeder
             [
                 'id_user' => '1',
                 'id_disco' => '1',
+                'nota' => 1,
+                'isLiked' => true,
             ],
             [
                 'id_user' => '1',
                 'id_disco' => '2',
+                'nota' => 2,
+                'isLiked' => false,
             ],
             [
                 'id_user' => '1',
                 'id_disco' => '3',
+                'nota' => 3,
+                'isLiked' => true,
             ],
             [
                 'id_user' => '1',
                 'id_disco' => '4',
+                'nota' => 4,
+                'isLiked' => false,
             ],
             [
                 'id_user' => '1',
                 'id_disco' => '5',
+                'nota' => 5,
+                'isLiked' => false,
             ],
             [
                 'id_user' => '1',
                 'id_disco' => '6',
+                'nota' => 4,
+                'isLiked' => true,
             ],
             [
                 'id_user' => '1',
                 'id_disco' => '7',
+                'nota' => 3,
+                'isLiked' => true,
             ],[
                 'id_user' => '1',
                 'id_disco' => '8',
+                'nota' => 2,
+                'isLiked' => false,
             ],
         ]);
 
