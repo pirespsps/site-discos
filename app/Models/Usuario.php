@@ -16,6 +16,7 @@ class Usuario extends Model
             'id_user',
             'id_disco',)
         ->withPivot(['isLiked','nota'])
+        ->with('banda')
         ->orderBy('tb_disco.id_banda');
     }
 
@@ -24,9 +25,10 @@ class Usuario extends Model
     }
 
     public static function showQuery($id){
-        $usuario =  Usuario::with(['discos'])->findOrFail($id);
+        $usuario =  Usuario::with(['discos'])
+        ->findOrFail($id);
 
-        $usuario->discos = $usuario->discos->sortByDesc('created_at');
+        //$usuario->discos = $usuario->discos->sortByDesc('created_at');
 
         return $usuario;
 

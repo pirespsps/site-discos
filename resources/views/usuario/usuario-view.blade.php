@@ -49,7 +49,19 @@
 </div>
 
 <div id="Bandas" class="tab-content">
-    <h1>Bandas</h1>
+    <div class="d-flex w-100 h-100">
+
+        @foreach ($bandas as [$titulo, $image, $id])
+
+                <div class="h-50 w-50 text-default">
+                    <a class="text-default text-decoration-none" href="{{ route('bandas.show', ['banda' => $id]) }}">
+                        <img class="h-75 w-75" src="{{ asset($image) }}">
+                        <p>{{ $titulo }}</p>
+                    </a>
+                </div>
+
+        @endforeach
+    </div>
 </div>
 
 <div id="Discos" class="tab-content">

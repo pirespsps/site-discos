@@ -22,7 +22,22 @@ class UsuarioController extends Controller
             return view('not-found', ['erro' => $e]);
         }
 
-        $cards = $this->makeCards($usuario->discos);
+        $bandas = [];
+        $currentBanda = 0;
+        
+        //discos são ordenados pelo id da banda
+        foreach($usuario->discos as $disco){
+            
+            $banda = $disco->banda;
+
+            if($banda->id != $currentBanda){
+                $bandas[$banda->id] = [$banda->nome,$banda->path_img,$banda->id];
+                $currentBanda = $banda->id;
+            }else{
+                array_push($bandas[$currentBanda],[$banda->nome,$banda->path_img,$banda->id]); 
+            }
+
+        }
 
         $discos = [];
 
@@ -30,10 +45,13 @@ class UsuarioController extends Controller
             $discos[] = [$disco->titulo,$disco->path_img,$disco->id];
         }
 
+        $cards = $this->makeCards($usuario->discos);
+
         return view('usuario.usuario-view', [
             'usuario' => $usuario,
             'cards' => $cards,
             'discos' => $discos,
+            'bandas' => $bandas,
         ]);
     }
 
@@ -83,7 +101,7 @@ class UsuarioController extends Controller
         $currentBand = 0;
         $cards = [];
 
-        foreach($discos as $disco){
+        foreach($discos as $disco){ //ordernar por created_at depois
 
             if(sizeof($cards) >= $limit){
                 break;
