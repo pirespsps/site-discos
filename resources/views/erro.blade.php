@@ -6,9 +6,15 @@
 
 <div class="alert bg-dark h-100 w-75 align-items-center text-center mx-auto mt-5">
 
-    <h1 class="text-white">Página não encontrada</h1>
-    @if ($erro != null)
-        <p class="text-default">{{ $erro }}</p>
+    <h1 class="text-white">
+        @if ($erro != null)
+        {{ $erro }}
+        @else
+        Página não encontrada
+        @endif
+    </h1>
+    @if (isset($message))
+        <p class="text-default">{{ $message }}</p>
     @endif
     <br>
     <br>

@@ -33,7 +33,10 @@ class DiscoController extends Controller
         try{
             $disco = Disco::showQuery($id,session('user.id'));
         }catch(Exception $e){
-            return view('not-found',['erro' => $e->getMessage()]);
+            return view('erro', [
+                'erro' => "Disco não encontrado",
+                'message' => $e->getMessage()
+            ]);
         }
 
         $tags = [];

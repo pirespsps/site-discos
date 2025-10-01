@@ -23,7 +23,10 @@ class UsuarioController extends Controller
         try {
             $usuario = Usuario::showQuery($id);
         } catch (Exception $e) {
-            return view('not-found', ['erro' => $e]);
+            return view('erro', [
+                'erro' => "Usuário não encontrado",
+                'message' => $e->getMessage()
+            ]);
         }
 
         $discos = [];

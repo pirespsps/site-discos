@@ -18,7 +18,10 @@ class TrackController extends Controller{
         try{
             $track = Track::showQuery($id,session()->get('user.id'));
         }catch(Exception $e){
-            return view('not-found',['erro' => $e->getMessage()]);
+            return view('erro', [
+                'erro' => "Track não encontrada",
+                'message' => $e->getMessage()
+            ]);
         }
 
         $tags = [];

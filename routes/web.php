@@ -4,6 +4,7 @@ use App\Http\Controllers\BandaController;
 use App\Http\Controllers\DiscoController;
 use App\Http\Controllers\TrackController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Middleware\IsCreatorMiddleware;
 use App\Http\Middleware\IsLoggedMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -18,7 +19,6 @@ Route::get('/login', [AuthController::class, "login"])->name("login");
 Route::post("/login/entrar", [AuthController::class, "loginEntrar"])->name("login-entrar");
 Route::get("/logout", [AuthController::class, "logout"])->name('logout');
 
-
 resourceWithIsLogged('discos', DiscoController::class);
 resourceWithIsLogged('bandas', BandaController::class);
 resourceWithIsLogged('tracks', TrackController::class);
@@ -26,7 +26,6 @@ resourceWithIsLogged('usuarios', UsuarioController::class);
 
 function resourceWithIsLogged(string $prefix, string $controller)
 {
-    //padronizar {nome} para {id} e fazer verificaçao para mesmo id em session e em get
 
     Route::resource($prefix, $controller)
         ->except([
@@ -38,17 +37,19 @@ function resourceWithIsLogged(string $prefix, string $controller)
         ]);
 
 
-    Route::middleware(IsLoggedMiddleware::class)->group(
-        function () use ($prefix,$controller) {
-        Route::resource($prefix, $controller)
-            ->only([
-                'store',
-                'create',
-                'update',
-                'edit',
-                'destroy',
-            ]);
-    }
-    );
+    Route::resource($prefix, $controller)
+        ->middleware(IsLoggedMiddleware::class)
+        ->only([
+            'create',
+            'edit',
+        ]);
+
+    Route::resource($prefix, $controller)
+        ->middleware(IsCreatorMiddleware::class)
+        ->only([
+            'store',
+            'update',
+            'destroy',
+        ]);
 
 }

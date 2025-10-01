@@ -30,7 +30,10 @@ class BandaController extends Controller
         try{
             $banda = Banda::showQuery($id,session()->get('user.id'));
         }catch(Exception $e){
-            return view('not-found',['erro' => $e->getMessage()]);
+            return view('erro', [
+                'erro' => "Banda não encontrada",
+                'message' => $e->getMessage()
+            ]);
         }
 
         $tags = [];
