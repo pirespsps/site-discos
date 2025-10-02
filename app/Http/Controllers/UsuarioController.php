@@ -37,7 +37,6 @@ class UsuarioController extends Controller
         //discos são ordenados pelo id da banda
         foreach($usuario->discos as $disco){
 
-            //$disco->pivot->nota != self::DEFAULT_NOTA
             if($disco->pivot->nota != self::DEFAULT_NOTA){
                 array_push($logs,[
                     'disco' => $disco->titulo,
@@ -63,12 +62,13 @@ class UsuarioController extends Controller
 
         $cards = $this->makeCards($usuario->discos);
 
-        return view('usuario.usuario-view', [ //ordenar tudo por created_at depois
+        return view('usuario.usuario-view', [ //ordenar tudo por created_at depois, pagination
             'usuario' => $usuario,
             'cards' => $cards,
             'discos' => $discos,
             'bandas' => $bandas,
             'logs' => $logs,
+            'comentarios' => $usuario->comentarios
         ]);
     }
 

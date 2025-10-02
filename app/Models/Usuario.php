@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Usuario extends Model
 {
@@ -20,12 +21,16 @@ class Usuario extends Model
         ->orderBy('tb_disco.id_banda');
     }
 
+    public function comentarios(){
+        return $this->hasMany(Comentario::class,'id_user');
+    }
+
     public static function searchByUser($user){
         return self::where('user',$user)->get()->first();
     }
 
     public static function showQuery($id){
-        $usuario =  Usuario::with(['discos'])
+        $usuario =  Usuario::with(['discos','comentarios'])
         ->findOrFail($id);
 
         //$usuario->discos = $usuario->discos->sortByDesc('created_at');

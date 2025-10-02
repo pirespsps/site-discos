@@ -68,11 +68,11 @@
 
     <div class="d-flex w-100 h-100">
 
-        @foreach ($discos as [$titulo, $image, $id])
+        @foreach ($discos as [$titulo,$img,$id])
 
                 <div class="h-50 w-50 text-default">
                     <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $id]) }}">
-                        <img class="h-75 w-75" src="{{ asset($image) }}">
+                        <img class="h-75 w-75" src="{{ asset($img) }}">
                         <p>{{ $titulo }}</p>
                     </a>
                 </div>
@@ -107,7 +107,17 @@
 </div>
 
 <div id="Comentarios" class="tab-content">
-    <h1>Comentários</h1>
+    <div class="h-100 w-100">
+        @foreach ($comentarios as $comentario)
+            <div class="h-25 w-50 d-block bg-dark rounded mt-3 p-2">
+                <a class="text-decoration-none text-default" href="#">
+                    <h3>{{ $comentario->id }}</h3> <!--Mostrar o nome do disco/banda/album, e foto pequena-->
+                    <p>{{ $comentario->texto }}</p>
+                </a>
+            </div>
+        @endforeach
+
+    </div>
 </div>
 
 <script src="{{ asset('js/usuario.js') }}"></script>
