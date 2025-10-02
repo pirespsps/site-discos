@@ -1,0 +1,12 @@
+PROJETO DE WEB 2 - INFO 3 - Turma B - Discoteca 
+Matheus Pires Knoll e Lucas Antônio Dias Maschio 
+
+ O projeto tem como objetivo criar um site com as funcionalidades de organizar discos, músicas e bandas, envolvendo também aspectos socio-interativos entre os usuários, utilizando o framework Laravel para isso, com auxílio do Bootstrap para estilização e utilizando MySQL para o banco de dados. Será possível o cadastro de usuários (CRUD de usuários), e com isso um sistema de login e logout. Os usuários poderão cadastrar discos (CRUD de discos), músicas avulsas (CRUD de músicas) e bandas (CRUD de bandas), além disso eles poderão ver os mesmos cadastrados por outros, cada usuário poderá editar e excluir os discos que já cadastraram, discos com o mesmo nome não poderão ser cadastrados. Sendo assim, os utilizadores cadastrados poderam dar uma nota para o determinado disco de uma a cinco estrelas, além de favorita-los e comentar sobre um disco (CRUD de comentários). Os comentários ficarão salvos e públicos para outro usuarios. Os usuários tambem terão uma lista de discos chamada "Ouvir mais tarde", onde os discos ja cadastradas poderão ser adicionados e retirados. O site também contará com uma barra de pesquisa utilizada para procurar discos, bandas e músicas já cadastradas.
+
+ A navegação dentro do site iniciará na tela inicial, sem usuário cadastrado, tendo apenas as funcionalidades de login, e de listagem de objetos ja cadastrados. As demais funcionalidades, como a de cadastro por exemplo, só serão permitidas à aqueles que já se cadastraram.
+
+VIEWS PREVISTAS: CRUD de música, CRUD de disco, CRUD de banda, CRUD do comentário, cadastro do usuário, login, logout, página inicial(index), página do usuário, página da múscia, página do disco,  página da banda, página do comentário, listagem de discos, listagem de bandas, listagem de usuários, página de erro;
+
+CONTROLLERS PREVISTOS: Controle padrão, controle de bandas, controle de discos, controle de usuários, controle de músicas, controle de comentários;
+
+TABELAS DO BANCO PREVISTAS: Usuario, banda, disco, musica, comentario, usuário-disco, usuário-banda, usuário-música, usuário-usuário, usuário-comentario, banda-disco, disco-musica, comentario-banda, comentario-disco, comentario-musica;
