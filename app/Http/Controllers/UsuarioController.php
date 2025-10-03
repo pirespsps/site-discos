@@ -68,7 +68,10 @@ class UsuarioController extends Controller
             'discos' => $discos,
             'bandas' => $bandas,
             'logs' => $logs,
-            'comentarios' => $usuario->comentarios
+            'comentarios_disco' => $usuario->comentarios_disco,
+            'comentarios_banda' => $usuario->comentarios_banda,
+            'comentarios_track' => $usuario->comentarios_track
+
         ]);
     }
 

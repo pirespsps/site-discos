@@ -74,6 +74,10 @@ li:hover{
     animation: fadeEffect 0.666s;
 }
 
+.sub-tab-content{
+    @extend .tab-content;
+}
+
 @keyframes fadeEffect {
   from {opacity: 0;}
   to {opacity: 1;}

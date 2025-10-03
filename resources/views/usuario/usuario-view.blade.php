@@ -53,12 +53,12 @@
 
         @foreach ($bandas as [$titulo, $image, $id])
 
-                <div class="h-50 w-50 text-default">
-                    <a class="text-default text-decoration-none" href="{{ route('bandas.show', ['banda' => $id]) }}">
-                        <img class="h-75 w-75" src="{{ asset($image) }}">
-                        <p>{{ $titulo }}</p>
-                    </a>
-                </div>
+            <div class="h-50 w-50 text-default">
+                <a class="text-default text-decoration-none" href="{{ route('bandas.show', ['banda' => $id]) }}">
+                    <img class="h-75 w-75" src="{{ asset($image) }}">
+                    <p>{{ $titulo }}</p>
+                </a>
+            </div>
 
         @endforeach
     </div>
@@ -68,14 +68,14 @@
 
     <div class="d-flex w-100 h-100">
 
-        @foreach ($discos as [$titulo,$img,$id])
+        @foreach ($discos as [$titulo, $img, $id])
 
-                <div class="h-50 w-50 text-default">
-                    <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $id]) }}">
-                        <img class="h-75 w-75" src="{{ asset($img) }}">
-                        <p>{{ $titulo }}</p>
-                    </a>
-                </div>
+            <div class="h-50 w-50 text-default">
+                <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $id]) }}">
+                    <img class="h-75 w-75" src="{{ asset($img) }}">
+                    <p>{{ $titulo }}</p>
+                </a>
+            </div>
 
         @endforeach
     </div>
@@ -83,41 +83,95 @@
 
 <div id="Logs" class="tab-content">
     @foreach ($logs as $log)
-        <div class="h-25 w-50 bg-dark d-flex rounded mt-3 {{ $log['isLiked']? 'border border-primary' : '' }}">
+        <div class="h-25 w-50 bg-dark d-flex rounded mt-3 {{ $log['isLiked'] ? 'border border-primary' : '' }}">
             <div class="d-block h-50 w-25">
-                <a class="text-default text-decoration-none" href="{{ route('discos.show',['disco' => $log['id']])}}">
-                <h3 class="w-100 mx-2">{{ $log['disco'] }}</h3>
-                <img class="h-50 w-50 p-2" src="{{ asset($log['img']) }}">
+                <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $log['id']])}}">
+                    <h3 class="w-100 mx-2">{{ $log['disco'] }}</h3>
+                    <img class="h-50 w-50 p-2" src="{{ asset($log['img']) }}">
                 </a>
             </div>
             <div class="h-25 w-100 d-flex mx-3">
-                @for ($i = 0;$i < $log['nota'];$i++)
+                @for ($i = 0; $i < $log['nota']; $i++)
                     <div class="w-25 h-25">
                         <img class="h-25 w-25" src="{{ asset('images/primaryStarIcon.png') }}">
                     </div>
                 @endfor
             </div>
             @if ($log['isLiked'])
-                    <div class="w-25 h-25">
-                        <img class="h-25 w-25 mx-5 mt-2" src="{{ asset('images/primaryHeartIcon.png') }}">
-                    </div>
-                @endif
+                <div class="w-25 h-25">
+                    <img class="h-25 w-25 mx-5 mt-2" src="{{ asset('images/primaryHeartIcon.png') }}">
+                </div>
+            @endif
         </div>
     @endforeach
 </div>
 
 <div id="Comentarios" class="tab-content">
     <div class="h-100 w-100">
-        @foreach ($comentarios as $comentario)
-            <div class="h-25 w-50 d-block bg-dark rounded mt-3 p-2">
-                <a class="text-decoration-none text-default" href="#">
-                    <h3>{{ $comentario->id }}</h3> <!--Mostrar o nome do disco/banda/album, e foto pequena-->
-                    <p>{{ $comentario->texto }}</p>
-                </a>
-            </div>
-        @endforeach
+
+        <button class="sub-tab-item text-default btn " id="defaultSubOpen"
+            onclick="openSubTab(event, 'Sub-Discos')">Discos</button>
+        <button class="sub-tab-item text-default btn " onclick="openSubTab(event, 'Sub-Bandas')">Bandas</button>
+        <button class="sub-tab-item text-default btn " onclick="openSubTab(event, 'Sub-Tracks')">Tracks</button>
 
     </div>
 </div>
+
+<!-- Tabs de comentários -->
+
+<div id="Sub-Discos" class="sub-tab-content">
+    <div class="h-100 w-100">
+        @foreach ($comentarios_disco as $comentario)
+            <div class="w-50 h-25 border rounded p-2 m-3">
+                <div class="w-25 h-25 d-flex">
+                    <img class="w-25 h-25" src="{{ asset($comentario->disco[0]->path_img) }}">
+                    <a class="text-decoration-none text-default"
+                        href="{{ route('discos.show', ['disco' => $comentario->disco[0]->id]) }}">
+                        <h3 class="mx-3">{{ $comentario->disco[0]->titulo }}</h3>
+                    </a>
+                </div>
+                <p class="p-2">{{ $comentario->texto }}</p>
+            </div>
+        @endforeach
+    </div>
+
+</div>
+
+<div id="Sub-Bandas" class="sub-tab-content">
+    <div class="h-100 w-100">
+        @foreach ($comentarios_banda as $comentario)
+            <div class="w-50 h-25 border rounded p-2 m-3">
+                <div class="w-25 h-25 d-flex">
+                    <img class="w-25 h-25" src="{{ asset($comentario->banda[0]->path_img) }}">
+                    <a class="text-decoration-none text-default"
+                        href="{{ route('bandas.show', ['banda' => $comentario->banda[0]->id]) }}">
+                        <h3 class="mx-3">{{ $comentario->banda[0]->nome }}</h3>
+                    </a>
+                </div>
+                <p class="p-2">{{ $comentario->texto }}</p>
+            </div>
+        @endforeach
+    </div>
+
+</div>
+
+<div id="Sub-Tracks" class="sub-tab-content">
+    <div class="h-100 w-100">
+        @foreach ($comentarios_track as $comentario)
+            <div class="w-50 h-25 border rounded p-2 m-3">
+                <div class="w-25 h-25 d-flex">
+                    <img class="w-25 h-25" src="{{ asset($comentario->track[0]->banda->path_img) }}">
+                    <a class="text-decoration-none text-default"
+                        href="{{ route('tracks.show', ['track' => $comentario->track[0]->id]) }}">
+                        <h3 class="mx-3">{{ $comentario->track[0]->titulo }}</h3>
+                    </a>
+                </div>
+                <p class="p-2">{{ $comentario->texto }}</p>
+            </div>
+        @endforeach
+    </div>
+
+</div>
+
 
 <script src="{{ asset('js/usuario.js') }}"></script>
