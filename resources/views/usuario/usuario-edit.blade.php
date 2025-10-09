@@ -13,9 +13,11 @@
                                 <form method="POST" action="{{ route('usuarios.update', ['usuario' => $usuario->id]) }}">
                                 @csrf
                                 <div class="d-block h-25 w-100 p-3 justify-content-center text-center">
+                                    <div class="mb-3 d-flex justify-content-start">
                                     @method('PATCH')
 
-                                    <input name='path_img' class="h-25" type="file" value="{{ $usuario->path_img }}">
+                                    <label class="text-light mt-3" for="input_user">Foto:</label>
+                                    <input name='path_img' class="h-25" type="file">
                                     
                                     <div>
                                         <label class="text-light mt-3" for="input_user">Usuário:</label>
@@ -40,7 +42,7 @@
                                     <input type="hidden" name="id_criador" value="{{ $usuario->id }}">
 
                                     <input type="submit" class="button button-primary" value="Enviar">
-
+                                
                                 </div>
                             </form>
 
