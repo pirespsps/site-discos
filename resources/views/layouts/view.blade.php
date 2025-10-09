@@ -4,73 +4,80 @@
 <div class="container w-100 h-100 d-flex">
 
     <div class="bg-dark w-25 p-4 vh-100 justify-content-start d-block mt-3 mb-3 border border-primary">
-        <img src="{{ asset($cover) }}" class="p-3 w-100 h-50 justify-content-center bg">
-        <div class="text-default d-block">
-            <div>Gêneros: {{ implode(', ',$tags) }}</div>
-            @if ($type != "banda")
-                <div>Duração: {{ $duracao }}</div>
-            @endif
+        <div class = "container h-10 w-10">
+            <img src="{{ asset($cover) }}" class="w-100 h-100 justify-content-center bg">
         </div>
-        <div class="text-default d-block text-center">
-            <div class="stars"><!-- botar pra deixar as estrelas dinamicas depois, tratar para track -->
-                @for ($i = 1; $i <= 5; $i++)
-                    <img class="w-25 h-25" src="{{ asset('images/whiteStarIcon.png') }}">
-                @endfor
+            <div class="text-default d-block p-3">
+                <div>Gêneros: {{ implode(', ',$tags) }}</div>
+                @if ($type != "banda")
+                    <div>Duração: {{ $duracao }}</div>
+                @endif
             </div>
-            <div class="stars">Sua Nota</div>
-        </div>
+            <div class = "container h-10 w-10">
+                <div class = "row d-flex align-items-center justify-content-center">
+                    <div class="text-default d-block text-center p-3">
+                        <div class="stars"><!-- botar pra deixar as estrelas dinamicas depois, tratar para track -->
+                            @for ($i = 1; $i <= 5; $i++)
+                                <img class="w-25 h-25 img-fluid" src="{{ asset('images/whiteStarIcon.png') }}">
+                            @endfor
+                        </div>
+                        <div class="stars">Sua Nota</div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-default d-flex text-center mt-5 mb-5">
 
-        <div class="text-default d-flex text-center mt-5 mb-5">
+                @if($type != "banda")
+                    <div>
+                        <img class="w-75 h-50"
+                            src="{{ asset('images/' . ($isListened ? 'primaryEarIcon' : 'whiteEarIcon') . '.png')}}">
+                        <p>Escutado</p>
+                    </div>
+                @endif
 
-            @if($type != "banda")
                 <div>
                     <img class="w-75 h-50"
-                        src="{{ asset('images/' . ($isListened ? 'primaryEarIcon' : 'whiteEarIcon') . '.png')}}">
-                    <p>Escutado</p>
+                        src="{{ asset('images/' . ($isLiked ? 'primaryHeartIcon' : 'whiteHeartIcon') . '.png')}}">
+                    <p>Favoritar</p>
                 </div>
-            @endif
 
-            <div>
-                <img class="w-75 h-50"
-                    src="{{ asset('images/' . ($isLiked ? 'primaryHeartIcon' : 'whiteHeartIcon') . '.png')}}">
-                <p>Favoritar</p>
+                @if (isset($hasCommentary))
+                    <div>
+                        <img class="w-75 h-50"
+                            src="{{ asset('images/' . ($hasCommentary ? 'primaryCommentaryIcon' : 'whiteCommentaryIcon') . '.png')}}">
+                        <p>Comentar</p>
+                    </div>
+                @endif
+
             </div>
-
-            @if (isset($hasCommentary))
-                <div>
-                    <img class="w-75 h-50"
-                        src="{{ asset('images/' . ($hasCommentary ? 'primaryCommentaryIcon' : 'whiteCommentaryIcon') . '.png')}}">
-                    <p>Comentar</p>
-                </div>
-            @endif
-
-        </div>
-
     </div>
 
     <div class="d-block text-default w-100 h-100">
 
         <div>
-            <div class="d-flex p-3 mx-3">
+            <div class="d-flex mt-3 mx-3">
                 <h1>{{ $titulo }}</h1>
-                <p>{{ $ano }}</p>
+                <div class="mt-3 mx-2">
+                    <p>{{ $ano }}</p>
+                </div>
             </div>
 
-            @if($type == 'track')
-                <p>pertence a
-                    <a href="{{ route('discos.show',['disco' =>  $disco_id ]) }}" class="text-white text-decoration-none">{{ $disco }}</a>
-                </p>
-            @endif
+            <div class="mx-4 mb-3">
+                @if($type == 'track')
+                    <p style="margin-bottom: 0">pertence a
+                        <a href="{{ route('discos.show',['disco' =>  $disco_id ]) }}" class="text-white text-decoration-none">{{ $disco }}</a>
+                    </p>
+                @endif
 
-            @if ($type != 'banda')
-                <p>de
-                    <a href="{{ route('bandas.show',['banda' => $banda_id]) }}" class="text-white text-decoration-none">{{ $banda }}</a>
+                @if ($type != 'banda')
+                    <p style="margin-bottom: 0">de
+                        <a href="{{ route('bandas.show',['banda' => $banda_id]) }}" class="text-white text-decoration-none">{{ $banda }}</a>
+                    </p>
+                @endif
+                <p style="margin-bottom: 0">cadastrado por
+                    <a href="/usuarios/{{ $usuario_id }}" class="text-white text-decoration-none"> {{ $usuario }} </a>
                 </p>
-            @endif
-            <p>cadastrado por
-                <a href="/usuarios/{{ $usuario_id }}" class="text-white text-decoration-none"> {{ $usuario }} </a>
-            </p>
-
+            </div>
         </div>
 
         @if(isset($multipleData))
