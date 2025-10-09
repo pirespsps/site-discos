@@ -16,17 +16,17 @@
 
         <div>
             <label for="input_email">Email:</label>
-            <input name="input-user" type="text" value={{ $usuario->email }}>
+            <input name="input-email" type="text" value={{ $usuario->email }}>
         </div>
 
         <div>
             <label for="input_password">Senha:</label>
-            <input name="input-user" type="text">
+            <input name="input-passowrd" type="text">
         </div>
 
         <div class="d-block">
             <label for="confirm_password">Digite aqui sua senha atual</label>
-            <input name="input-user" type="text">
+            <input name="confirm_password" type="text">
         </div>
 
         <input type="hidden" name="id_criador" value="{{ $usuario->id }}">
@@ -38,6 +38,8 @@
 
 <form method="post" action="{{ route("usuarios.destroy", ['usuario' => $usuario->id]) }}">
     @method("DELETE")
+    @csrf
+
     <input type="submit" value="Deletar">
 </form>
 
