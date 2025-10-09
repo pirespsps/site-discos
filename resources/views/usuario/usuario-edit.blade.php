@@ -10,20 +10,20 @@
                     <div class="col-md-6 col-sm-8">
                         <div class="card p-4 bg-dark center rounded-5">
 
-                                <form method="POST" action="{{ route('usuarios.update', ['usuario' => $usuario->id]) }}">
+                                <form method="POST" action="{{ route('usuarios.update', ['usuario' => $usuario->id]) }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="d-block h-25 w-100 p-3 justify-content-center text-center">
                                     <div class="mb-3 d-flex justify-content-start">
-                                    @method('PATCH')
+                                        @method('PATCH')
 
-                                    <label class="text-light mt-3" for="input_user">Foto:</label>
-                                    <input name='path_img' class="h-25" type="file">
-                                    
-                                    <div>
-                                        <label class="text-light mt-3" for="input_user">Usuário:</label>
-                                        <input name="input-user" type="text" value={{ $usuario->user }}>
+                                        <label class="text-light mt-3" for="input_user">Foto:</label>
+                                        <input name='path_img' class="h-25" type="file">
+                                        
+                                        <div>
+                                            <label class="text-light mt-3" for="input_user">Usuário:</label>
+                                            <input name="input-user" type="text" value={{ $usuario->user }}>
+                                        </div>
                                     </div>
-
                                     <div>
                                         <label for="input_email">Email:</label>
                                         <input name="input-email" type="text" value={{ $usuario->email }}>
