@@ -5,6 +5,7 @@
     <form method="POST" action="{{ route('usuarios.update', ['usuario' => $usuario->id]) }}">
     @csrf
     <div class="d-block h-25 w-100 p-3 justify-content-center text-center">
+        @method('PATCH')
 
         <input class="h-25" type="file" value="{{ $usuario->path_img }}">
         
@@ -33,8 +34,9 @@
     </div>
 </form>
 
-<form method="POST" action="{{ route("usuarios.destroy", ['usuario'] => $usuario->id) }}">
-
+<form method="post" action="{{ route("usuarios.destroy", ['usuario' => $usuario->id]) }}">
+    @method("DELETE")
+    <input type="submit" value="Deletar">
 </form>
 
 </div>
