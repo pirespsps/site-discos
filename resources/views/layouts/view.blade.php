@@ -18,8 +18,8 @@
                     <div class="text-default d-block text-center p-3">
                         <div class="stars d-flex"><!-- botar pra deixar as estrelas dinamicas depois, tratar para track -->
                             @for ($i = 1; $i <= 5; $i++)
-                                <div class="h-50">
-                                    <img class="w-75 h-25 img-fluid" src="{{ asset('images/whiteStarIcon.png') }}">
+                                <div class="h-75">
+                                    <img class="w-100 h-100 img-fluid" src="{{ asset('images/whiteStarIcon.png') }}">
                                 </div>
                             @endfor
                         </div>

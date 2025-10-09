@@ -142,8 +142,6 @@ class UsuarioController extends Controller
         $user->user = trim($atributos['input-user']);
         $user->email = trim($atributos['input-email']);
 
-        //
-
         if(isset($atributos['input-password'])){
             $user->password = Hash::make(trim($atributos['input-password']));
         }
