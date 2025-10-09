@@ -4,8 +4,9 @@
     <div class="d-flex h-25 w-100 p-3">
         <img class="h-25 rounded-circle border border-primary" src="{{ asset($usuario->path_img) }}">
         <h1 class="text-default">{{$usuario->user  }}</h1>
+
         @if($usuario->id == session()->get('user.id'))
-            <button class="btn btn-primary h-25 mt-2 mx-3">Editar Perfil</button>
+            <button id="editBT" class="btn btn-primary h-25 mt-2 mx-3">Editar Perfil</button>
         @endif
 
     </div>
@@ -19,6 +20,7 @@
         <button class="tab-item text-default btn " onclick="openTab(event, 'Comentarios')">Comentários</button>
     </div>
 </div>
+<input id="id_user" type="hidden" value="{{ $usuario->id }}">
 
 <!-- Tabs -->
 

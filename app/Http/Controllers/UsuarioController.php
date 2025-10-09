@@ -89,22 +89,22 @@ class UsuarioController extends Controller
         return redirect()->route('usuarios.show', ['id' => $usuario->id]);
     }
 
-    public function edit(Request $request, int $id)
+    public function edit(Request $request, $id)
     {
 
         try {
             $usuario = Usuario::findOrFail($id);
         } catch (Exception $e) {
-            //tratar erro
+            return view('erro',['erro' => "Usuário não encontrado"]);
         }
 
-        return view("", ['usuario' => $usuario]);
+        return view("usuario.usuario-edit", ['usuario' => $usuario]);
 
     }
 
     public function update(Request $request, int $id)
     {
-        $usuario = Usuario::find(1);
+        return "ola";
 
         return redirect()->route('usuarios.show', ['id' => $usuario->id]);
     }

@@ -1,6 +1,11 @@
 document.getElementById("defaultOpen").click();
 document.getElementById("defaultSubOpen").click();
 
+document.getElementById("editBT").addEventListener('click',function (){
+    let id = document.getElementById("id_user").value
+    window.location.href = `/usuarios/${id}/edit`
+});
+
 function openTab(evt,tabName){
     var i, tabContents, tabItems;
 
