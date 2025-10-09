@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Hash;
+
 
 class UsuarioController extends Controller
 {
@@ -104,7 +107,55 @@ class UsuarioController extends Controller
 
     public function update(Request $request, int $id)
     {
-        dd($request->post());
+
+        $request->validate(
+            [
+                'input-email' => 'required|email',
+                'input-user' => 'required|min:6|max:25|unique:tb_user,user',
+                'input-password' => 'required_with:text-confirmpassword|same:text-confirmpassword|min:6|max:20',
+                'path_img' => "mimes:png,jpg"
+            ],
+            [
+                'input-user.required' => "O campo de usuário é obrigatório.",
+                'input-user.min' => "Insira um usuário com mais de :min caracteres.",
+                'input-user.max' => "Insira um usuário com menos de :max caracteres.",
+                'input-user.unique' => "O nome de usuário já está em uso.",
+
+                'input-email.required' => "O campo de e-mail é obrigatório.",
+                'input-email.email' => "Insira um e-mail válido.",
+                'input-email.unique' => "Uma conta já existe com o mesmo endereço de e-mail.",
+
+                'input-passoword.required' => "O campo de senha é obrigatório.",
+                'input-passoword.min' => "Insira uma senha com mais de :min caracteres.",
+                'input-passoword.max' => "Insira uma senha com menos de :max caracteres.",
+            ]
+        );
+
+        $user = Usuario::find($id);
+
+        if(!Hash::check($request->get('confirm-password'),$usuario->id)){
+            return redirect()->back()->withInput()->with(['isPasswordRight' => "Senha não coincide"]);
+        }
+
+        $atributos = $request->post();
+
+        $user->user = trim($atributos['input_user']);
+        $user->email = trim($atributos['input_email']);
+        $user->password = Hash::make(trim($atributos['input_user']));
+
+        if($request->file('path_img') !== null){
+            
+            $path = "images/usuarios/";
+            $nomeArquivo = $user->id . "." . $request->file('path_img')->extension();
+            $path .= $nomeArquivo;
+            
+            Storage::disk('local')->put($path, file_get_contents($request->file('path_img')));
+
+            $user->path_img = $path;
+        }
+
+        $user->save();
+
 
         return redirect()->route('usuarios.show', ['id' => $usuario->id]);
     }
