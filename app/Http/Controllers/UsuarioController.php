@@ -112,7 +112,7 @@ class UsuarioController extends Controller
             [
                 'input-email' => 'required|email',
                 'input-user' => 'required|min:6|max:25|unique:tb_user,user',
-                'input-password' => 'required_with:text-confirmpassword|same:text-confirmpassword|min:6|max:20',
+                'input-password' => 'same:text-confirmpassword|min:6|max:20',
                 'path_img' => "mimes:png,jpg"
             ],
             [
@@ -133,7 +133,7 @@ class UsuarioController extends Controller
 
         $user = Usuario::find($id);
 
-        if(!Hash::check($request->get('confirm-password'),$usuario->id)){
+        if(!Hash::check($request->get('confirm-password'), $usuario->id)){
             return redirect()->back()->withInput()->with(['isPasswordRight' => "Senha não coincide"]);
         }
 
@@ -141,7 +141,10 @@ class UsuarioController extends Controller
 
         $user->user = trim($atributos['input_user']);
         $user->email = trim($atributos['input_email']);
-        $user->password = Hash::make(trim($atributos['input_user']));
+
+        if(isset($atributos['input_password'])){
+            $user->password = Hash::make(trim($atributos['input_password']));
+        }
 
         if($request->file('path_img') !== null){
             
@@ -155,7 +158,6 @@ class UsuarioController extends Controller
         }
 
         $user->save();
-
 
         return redirect()->route('usuarios.show', ['id' => $usuario->id]);
     }
