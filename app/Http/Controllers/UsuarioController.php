@@ -125,25 +125,27 @@ class UsuarioController extends Controller
                 'input-email.email' => "Insira um e-mail válido.",
                 'input-email.unique' => "Uma conta já existe com o mesmo endereço de e-mail.",
 
-                'input-passoword.required' => "O campo de senha é obrigatório.",
-                'input-passoword.min' => "Insira uma senha com mais de :min caracteres.",
-                'input-passoword.max' => "Insira uma senha com menos de :max caracteres.",
+                'input-password.required' => "O campo de senha é obrigatório.",
+                'input-password.min' => "Insira uma senha com mais de :min caracteres.",
+                'input-password.max' => "Insira uma senha com menos de :max caracteres.",
             ]
         );
 
         $user = Usuario::find($id);
 
-        if(!Hash::check($request->get('confirm-password'), $usuario->id)){
+        if($request->get('confirm-password') == null || !Hash::check(trim($request->get('confirm-password')), $user->senha)){
             return redirect()->back()->withInput()->with(['isPasswordRight' => "Senha não coincide"]);
         }
 
         $atributos = $request->post();
 
-        $user->user = trim($atributos['input_user']);
-        $user->email = trim($atributos['input_email']);
+        $user->user = trim($atributos['input-user']);
+        $user->email = trim($atributos['input-email']);
 
-        if(isset($atributos['input_password'])){
-            $user->password = Hash::make(trim($atributos['input_password']));
+        //
+
+        if(isset($atributos['input-password'])){
+            $user->password = Hash::make(trim($atributos['input-password']));
         }
 
         if($request->file('path_img') !== null){
@@ -159,14 +161,14 @@ class UsuarioController extends Controller
 
         $user->save();
 
-        return redirect()->route('usuarios.show', ['id' => $usuario->id]);
+        return redirect()->route('usuarios.show', ['id' => $user->id]);
     }
 
     public function destroy(Request $request, int $id)
     {
         Usuario::destroy($id);
 
-        return redirect()->route("usuarios.index");
+        return redirect()->route("logout");
     }
 
     private function makeCards($discos, $limit = self::DEFAULT_CARD_LIMIT){

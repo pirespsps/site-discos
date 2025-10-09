@@ -33,7 +33,6 @@ function resourceWithIsLogged(string $prefix, string $controller)
             'create',
             'update',
             'edit',
-            'destroy',
         ]);
 
 
@@ -49,7 +48,6 @@ function resourceWithIsLogged(string $prefix, string $controller)
         ->only([
             'store',
             'update',
-            'destroy',
         ]);
 
 }

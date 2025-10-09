@@ -34,21 +34,33 @@
                                             <div class="mb-3 w-100 d-flex justify-content-start">
                                                     <label class="text-light mt-3" for="input_user">Usuário:</label>
                                                     <input class="form-control bg-secondary text-info rounded-5" name="input-user" type="text" value={{ $usuario->user }}>
+                                                    @error('input-user')
+                                                        <div class="text-danger">{{$message}}</div>
+                                                    @enderror
                                             </div>
 
                                             <div class="mb-3 w-100 d-flex justify-content-start">
                                                     <label class="text-light mt-3" for="input_email">Email:</label>
                                                     <input class="form-control bg-secondary text-info rounded-5" name="input-email" type="text" value={{ $usuario->email }}>
+                                                    @error('input-email')
+                                                        <div class="text-danger">{{$message}}</div>
+                                                    @enderror
                                             </div>
 
                                             <div class="mb-3 w-100 d-flex justify-content-start">
                                                     <label class="text-light mt-3" for="input_password">Senha:</label>
-                                                    <input class="form-control bg-secondary text-info rounded-5" name="input-passowrd" type="text">
+                                                    <input class="form-control bg-secondary text-info rounded-5" name="input-passowrd" type="password">
+                                                    @error('input-password')
+                                                        <div class="text-danger">{{$message}}</div>
+                                                    @enderror
                                             </div>
 
                                             <div class="mb-3 w-100 d-flex justify-content-start">
                                                     <label class="text-light mt-3" for="confirm_password">Digite aqui sua senha atual</label>
-                                                    <input class="form-control bg-secondary text-info rounded-5" name="confirm_password" type="text">
+                                                    <input class="form-control bg-secondary text-info rounded-5" name="confirm-password" type="password">
+                                                    @error('input-password')
+                                                        <div class="text-danger">{{$message}}</div>
+                                                    @enderror
                                             </div>
 
                                             <input type="hidden" name="id_criador" value="{{ $usuario->id }}">
@@ -59,9 +71,13 @@
                                         </div>
                                     </form>
 
+                                    @if(isset($isPasswordRight))
+                                        {{ $isPasswordRight }}
+                                    @endif
+
 
                                     <form method="post" action="{{ route("usuarios.destroy", ['usuario' => $usuario->id]) }}">
-                                        @method("DELETE")
+                                        @method('DELETE')
                                         @csrf
 
                                         <div class="mt-5 d-flex justify-content-center">
