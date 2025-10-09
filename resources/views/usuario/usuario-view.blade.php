@@ -1,3 +1,4 @@
+@extends('layouts.principal-layout')
 @include('layouts.header', ['titulo' => $usuario->user])
 
 <div class="w-100 h-100">
