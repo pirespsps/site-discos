@@ -29,6 +29,8 @@
             <input name="input-user" type="text">
         </div>
 
+        <input type="hidden" name="id_criador" value="{{ $usuario->id }}">
+
         <input type="submit" class="button button-primary" value="Enviar">
 
     </div>

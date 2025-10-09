@@ -104,7 +104,7 @@ class UsuarioController extends Controller
 
     public function update(Request $request, int $id)
     {
-        var_dump($request->session());
+        dd($request->session());
 
         return redirect()->route('usuarios.show', ['id' => $usuario->id]);
     }
