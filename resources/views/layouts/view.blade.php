@@ -16,9 +16,11 @@
             <div class = "container h-10 w-10">
                 <div class = "row d-flex align-items-center justify-content-center">
                     <div class="text-default d-block text-center p-3">
-                        <div class="stars"><!-- botar pra deixar as estrelas dinamicas depois, tratar para track -->
+                        <div class="stars d-flex"><!-- botar pra deixar as estrelas dinamicas depois, tratar para track -->
                             @for ($i = 1; $i <= 5; $i++)
-                                <img class="w-25 h-25 img-fluid" src="{{ asset('images/whiteStarIcon.png') }}">
+                                <div class="h-50">
+                                    <img class="w-75 h-25 img-fluid" src="{{ asset('images/whiteStarIcon.png') }}">
+                                </div>
                             @endfor
                         </div>
                         <div class="stars">Sua Nota</div>

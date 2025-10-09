@@ -161,7 +161,7 @@ class UsuarioController extends Controller
 
         $user->save();
 
-        return redirect()->route('usuarios.show', ['id' => $user->id]);
+        return redirect()->route('usuarios.show', ['usuario' => $user->id]);
     }
 
     public function destroy(Request $request, int $id)
