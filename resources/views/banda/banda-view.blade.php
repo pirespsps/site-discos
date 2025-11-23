@@ -9,6 +9,7 @@
     'hasCommentary' => $hasCommentary,
     'multipleData' => $discos,
     'comentarios' => $comentarios,
-    'type' => 'banda'
+    'type' => 'banda',
+    'id' => $banda->id
 ])
 

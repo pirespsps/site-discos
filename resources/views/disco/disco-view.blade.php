@@ -14,6 +14,7 @@
     'hasCommentary' => $hasCommentary,
     'multipleData' => $musicas,
     'comentarios' => $comentarios,
-    'type' => 'disco'
+    'type' => 'disco',
+    'id' => $disco->id,
 ])
 

@@ -2,6 +2,9 @@
 
 @yield('body')
 <div class="container w-100 h-100 d-flex">
+    <input type="hidden" name="_token" id="_token" value={{ csrf_token() }}>
+    <input type="hidden" name="type" id="type" value={{ $type . 's' }}>
+    <input type="hidden" name="id" id="id" value={{ $id }}>
 
     <div class="bg-dark w-25 p-4 vh-100 justify-content-start d-block mt-3 mb-3 border border-primary">
         <div class = "container h-10 w-10">
@@ -19,7 +22,7 @@
                         <div class="stars d-flex"><!-- botar pra deixar as estrelas dinamicas depois, tratar para track -->
                             @for ($i = 1; $i <= 5; $i++)
                                 <div class="h-75">
-                                    @if ( $i <= $nota )
+                                    @if ( isset($nota) && $i <= $nota )
                                     <img id="star{{ $i }}" class="w-100 h-100 img-fluid starsIMG" src="{{ asset('images/primaryStarIcon.png') }}">    
                                     @else
                                     <img id="star{{ $i }}" class="w-100 h-100 img-fluid starsIMG" src="{{ asset('images/whiteStarIcon.png') }}">
@@ -126,7 +129,7 @@
         <div id="novoComentario" hidden>
             <div class="p-3 mx-4 mb-3 rounded bg-dark w-100">
                 <h3>Enviar comentário</h3>
-                <textarea class="w-100"></textarea>
+                <textarea id="comentarioTextArea" class="w-100"></textarea>
                 <div class="justify-content-end d-flex">
                         <button id="cancelarComentario" class="btn btn-secondary mx-1 h-100 text-black">Cancelar</button>
                         <button id="enviarComentario"class="btn btn-primary mx-1 h-100 text-black">Enviar</button>
@@ -150,6 +153,7 @@
 
     </div>
 
-<script src="{{ asset('js/viewLayout.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="{{ asset('js/viewLayout.js') }}"></script>
 
 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Disco;
 use Exception;
+use GeneralOperations;
 use Illuminate\Http\Request;
 
 class DiscoController extends Controller
@@ -135,5 +136,9 @@ class DiscoController extends Controller
         Disco::destroy($id);
 
         return redirect()->route("discos.index");
+    }
+
+    public function viewPOST(Request $request,int $id){
+        GeneralOperations::viewPostHelper($request,$id,'disco');
     }
 }

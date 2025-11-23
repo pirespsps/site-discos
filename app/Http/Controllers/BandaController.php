@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banda;
 use Exception;
+use GeneralOperations;
 use Illuminate\Http\Request;
 
 class BandaController extends Controller
@@ -114,5 +115,9 @@ class BandaController extends Controller
         Banda::destroy($id);
 
         return redirect()->route("bandas.index");
+    }
+
+    public function viewPOST(Request $request,int $id){
+        GeneralOperations::viewPostHelper($request,$id,'banda');
     }
 }

@@ -13,6 +13,7 @@
     'disco' => $track->disco->titulo,
     'disco_id' => $track->disco->id,
     'comentarios' => $comentarios,
-    'type' => 'track'
+    'type' => 'track',
+    'id' => $track->id
 ])
 

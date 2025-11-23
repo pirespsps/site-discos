@@ -24,6 +24,10 @@ resourceWithIsLogged('bandas', BandaController::class);
 resourceWithIsLogged('tracks', TrackController::class);
 resourceWithIsLogged('usuarios', UsuarioController::class);
 
+Route::post("/discos/{id}/viewPOST",[DiscoController::class,"viewPOST"]);
+Route::post("/bandas/{id}/viewPOST",[BandaController::class,"viewPOST"]);
+Route::post("/tracks/{id}/viewPOST",[TrackController::class,"viewPOST"]);
+
 function resourceWithIsLogged(string $prefix, string $controller)
 {
 

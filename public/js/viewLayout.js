@@ -1,3 +1,5 @@
+//import axios from 'axios';
+
 let favoritarIMG = document.getElementById("favoritarIMG")
 let comentarIMG = document.getElementById("comentarIMG")
 let stars = document.body.getElementsByClassName("starsIMG")
@@ -9,12 +11,25 @@ let isFavorite = favoritarIMG.src.includes("primary")
 let isCommented = comentarIMG.src.includes("primary")
 let nota = getNota();
 let hasChanged = false;
+let comentario = "";
 
-window.onbeforeunload = () => {
-    if(hasChanged){
-        
+window.onbeforeunload = () => {sendRequest()}
+
+document.getElementById("cancelarComentario").addEventListener("click",()=>{
+    document.getElementById("comentarioTextArea").value = ""
+    comentarioField.hidden = true
+});
+
+document.getElementById("enviarComentario").addEventListener("click", () => {
+    let text = document.getElementById("comentarioTextArea").value.trim()
+    
+    if(text != "" && text != null){
+        hasChanged = true;
+        comentario = text;
+        window.location.reload(true);
     }
-}
+
+})
 
 Array.from(stars).forEach(element => {
     element.addEventListener("click", () => { starEvent(element) });
@@ -54,8 +69,26 @@ function starEvent(element) {
     }
 }
 
+function sendRequest(){
+    if(hasChanged){
+
+        let id = document.getElementById('id').value
+        let type = document.getElementById('type').value
+        let token = document.getElementById("_token").value
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+
+        axios.post(`/${type}/${id}/viewPOST`,{
+            nota: nota,
+            isFavorite: isFavorite,
+            comentario: comentario,
+        })
+        .then(response => {console.log(response)})
+        .catch(error => {console.log(error)})
+    }
+}
+
 function getNota(){
-    n = 0;
+    let n = 0;
     Array.from(stars).forEach(star => {
         let isliked = star.src.includes("primary")
 

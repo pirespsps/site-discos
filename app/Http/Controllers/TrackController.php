@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Track;
 use Carbon\Carbon;
 use Exception;
+use GeneralOperations;
 use Illuminate\Http\Request;
 
 class TrackController extends Controller{
@@ -98,5 +99,9 @@ class TrackController extends Controller{
         Track::destroy($id);
 
         return redirect()->route("tracks.index");
+    }
+
+    public function viewPOST(Request $request,int $id){
+        GeneralOperations::viewPostHelper($request,$id,'track');
     }
 }
