@@ -19,7 +19,11 @@
                         <div class="stars d-flex"><!-- botar pra deixar as estrelas dinamicas depois, tratar para track -->
                             @for ($i = 1; $i <= 5; $i++)
                                 <div class="h-75">
-                                    <img class="w-100 h-100 img-fluid" src="{{ asset('images/whiteStarIcon.png') }}">
+                                    @if ( $i <= $nota )
+                                    <img id="star{{ $i }}" class="w-100 h-100 img-fluid starsIMG" src="{{ asset('images/primaryStarIcon.png') }}">    
+                                    @else
+                                    <img id="star{{ $i }}" class="w-100 h-100 img-fluid starsIMG" src="{{ asset('images/whiteStarIcon.png') }}">
+                                    @endif
                                 </div>
                             @endfor
                         </div>
@@ -31,21 +35,21 @@
 
                 @if($type != "banda")
                     <div>
-                        <img class="w-75 h-50"
+                        <img id="escutarIMG" class="w-75 h-50"
                             src="{{ asset('images/' . ($isListened ? 'primaryEarIcon' : 'whiteEarIcon') . '.png')}}">
                         <p>Escutado</p>
                     </div>
                 @endif
 
                 <div>
-                    <img class="w-75 h-50"
+                    <img id="favoritarIMG" class="w-75 h-50"
                         src="{{ asset('images/' . ($isLiked ? 'primaryHeartIcon' : 'whiteHeartIcon') . '.png')}}">
                     <p>Favoritar</p>
                 </div>
 
                 @if (isset($hasCommentary))
                     <div>
-                        <img class="w-75 h-50"
+                        <img id="comentarIMG" class="w-75 h-50"
                             src="{{ asset('images/' . ($hasCommentary ? 'primaryCommentaryIcon' : 'whiteCommentaryIcon') . '.png')}}">
                         <p>Comentar</p>
                     </div>
@@ -119,6 +123,17 @@
             </div>
         @endif
 
+        <div id="novoComentario" hidden>
+            <div class="p-3 mx-4 mb-3 rounded bg-dark w-100">
+                <h3>Enviar comentário</h3>
+                <textarea class="w-100"></textarea>
+                <div class="justify-content-end d-flex">
+                        <button id="cancelarComentario" class="btn btn-secondary mx-1 h-100 text-black">Cancelar</button>
+                        <button id="enviarComentario"class="btn btn-primary mx-1 h-100 text-black">Enviar</button>
+                </div>
+            </div>
+        </div>
+
         <div>
             @foreach ($comentarios as [$id,$usuario,$icon,$texto])
                 <div class="bg-dark p-1 mx-4 mb-3 rounded">
@@ -134,5 +149,7 @@
         </div> <!--paginate-->
 
     </div>
+
+<script src="{{ asset('js/viewLayout.js') }}"></script>
 
 </div>
