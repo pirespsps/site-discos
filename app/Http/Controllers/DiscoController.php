@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Disco;
 use Exception;
-use GeneralOperations;
+use App\Services\GeneralOperations;
 use Illuminate\Http\Request;
 
 class DiscoController extends Controller

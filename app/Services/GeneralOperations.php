@@ -1,6 +1,8 @@
 <?php
+namespace App\Services;
+
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\Comentario;
 use App\Models\Disco;
 use App\Models\Banda;
@@ -9,7 +11,6 @@ use App\Models\Track;
 
 class GeneralOperations
 {
-
 
     public static function viewPostHelper(Request $request, int $id, string $obj)
     {
@@ -25,11 +26,14 @@ class GeneralOperations
             ->exists();
 
         $data = [
-            'isLiked' => $isFavorite === null? false : $isFavorite === ""? false : true,
+            'isLiked' => $isFavorite === null? false : ($isFavorite === ""? false : true),
             'hasCommentary' => !empty($comentario),
-            'nota' => $nota,
-            'isListened' => true
+            'nota' => $nota
         ];
+
+        if($obj == "disco"){
+            $data['isListened'] = true;
+        }
 
         if ($exist) {
             DB::table("tb_user_$obj")

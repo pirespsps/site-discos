@@ -27,7 +27,7 @@ class Banda extends Model
             'tb_user_banda',
         'id_banda',
         'id_user')
-        ->withPivot(['isLiked','hasCommentary']);
+        ->withPivot(['isLiked','hasCommentary','nota']);
     }
 
     public function tags(){

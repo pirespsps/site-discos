@@ -10,6 +10,7 @@
     'multipleData' => $discos,
     'comentarios' => $comentarios,
     'type' => 'banda',
-    'id' => $banda->id
+    'id' => $banda->id,
+    'nota' => $nota
 ])
 

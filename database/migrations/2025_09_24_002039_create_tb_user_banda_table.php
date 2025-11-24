@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_banda')->constrained('tb_banda')->cascadeOnDelete()->cascadeOnUpdate();
             $table->boolean('isLiked')->default(false);
             $table->boolean('hasCommentary')->default(false);
+            $table->integer('nota')->nullable(true);
             $table->primary(['id_user','id_banda']);
             $table->timestamps();
         });

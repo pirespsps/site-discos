@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banda;
 use Exception;
-use GeneralOperations;
+use App\Services\GeneralOperations;
 use Illuminate\Http\Request;
 
 class BandaController extends Controller
@@ -62,17 +62,22 @@ class BandaController extends Controller
 
         if($banda->usuario != null){
 
-            $isLiked = $banda->usuario->pivot->isLiked; //arruma pra pegar certo que nem no disco
+            $isLiked = $banda->usuario->pivot->isLiked;
             $hasCommentary = $banda->usuario->pivot->hasCommentary;
+            $nota = $banda->usuario->pivot->nota;
         
         }else{
+            
             $isLiked = false;
             $hasCommentary = false;
+            $nota = 0;
+
         }
 
         return view("banda.banda-view",[
             'isLiked' => $isLiked,
             'hasCommentary' => $hasCommentary,
+            'nota' => $nota,
             'discos' => $discos,
             'banda' => $banda,
             'tags' => $tags,
