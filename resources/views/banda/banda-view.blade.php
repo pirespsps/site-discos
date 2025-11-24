@@ -13,4 +13,3 @@
     'id' => $banda->id,
     'nota' => $nota
 ])
-

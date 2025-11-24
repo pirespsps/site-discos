@@ -9,11 +9,12 @@ use Illuminate\Http\Request;
 
 class BandaController extends Controller
 {
-    public function index(Request $request){
-       $bandas = Banda::all();
+    public function index(Request $request)
+    {
+        $bandas = Banda::all();
 
         $bandasArray = [];
-        foreach($bandas as $banda){
+        foreach ($bandas as $banda) {
             $bandasArray[] = [
                 $banda->path_img,
                 $banda->nome,
@@ -26,11 +27,12 @@ class BandaController extends Controller
         return view('banda.banda-list', ['bandas' => $bandasArray]);
     }
 
-    public function show(Request $request, int $id){
+    public function show(Request $request, $id)
+    {
 
-        try{
-            $banda = Banda::showQuery($id,session()->get('user.id'));
-        }catch(Exception $e){
+        try {
+            $banda = Banda::showQuery($id, session()->get('user.id'));
+        } catch (Exception $e) {
             return view('erro', [
                 'erro' => "Banda não encontrada",
                 'message' => $e->getMessage()
@@ -39,19 +41,19 @@ class BandaController extends Controller
 
         $tags = [];
 
-        foreach($banda->tags as $tag){
+        foreach ($banda->tags as $tag) {
             $tags[] = $tag->value;
         }
 
         $discos = [];
 
-        foreach($banda->discos as $disco){
-            $discos[] = [$disco->titulo,$disco->ano,$disco->id];
+        foreach ($banda->discos as $disco) {
+            $discos[] = [$disco->titulo, $disco->ano, $disco->id];
         }
 
         $comentarios = [];
 
-        foreach($banda->comentarios as $comentario){
+        foreach ($banda->comentarios as $comentario) {
             $comentarios[] = [
                 $comentario->id_user,
                 $comentario->usuario->user,
@@ -60,21 +62,21 @@ class BandaController extends Controller
             ];
         }
 
-        if($banda->usuario != null){
+        if ($banda->usuario != null) {
 
             $isLiked = $banda->usuario->pivot->isLiked;
             $hasCommentary = $banda->usuario->pivot->hasCommentary;
             $nota = $banda->usuario->pivot->nota;
-        
-        }else{
-            
+
+        } else {
+
             $isLiked = false;
             $hasCommentary = false;
             $nota = 0;
 
         }
 
-        return view("banda.banda-view",[
+        return view("banda.banda-view", [
             'isLiked' => $isLiked,
             'hasCommentary' => $hasCommentary,
             'nota' => $nota,
@@ -86,43 +88,51 @@ class BandaController extends Controller
 
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
 
-        return view("");
+        return view("banda.banda-create",[
+            
+        ]);
     }
 
-    public function store(Request $request){
-        
+    public function store(Request $request)
+    {
+
         $banda = Banda::find(1);
 
-        return redirect()->route('bandas.show',['id' => $banda->id]);
+        return redirect()->route('bandas.show', ['id' => $banda->id]);
     }
 
-    public function edit(Request $request,int $id){
+    public function edit(Request $request, int $id)
+    {
 
-        try{
+        try {
             $banda = Banda::findOrFail($id);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             //tratar erro
         }
 
-        return view("",['banda' => $banda]);
+        return view("", ['banda' => $banda]);
 
     }
 
-    public function update(Request $request, int $id){
+    public function update(Request $request, int $id)
+    {
         $banda = Banda::find(1);
 
-        return redirect()->route('bandas.show',['id' => $banda->id]);
+        return redirect()->route('bandas.show', ['id' => $banda->id]);
     }
 
-    public function destroy(Request $request, int $id){
+    public function destroy(Request $request, int $id)
+    {
         Banda::destroy($id);
 
         return redirect()->route("bandas.index");
     }
 
-    public function viewPOST(Request $request,int $id){
-        GeneralOperations::viewPostHelper($request,$id,'banda');
+    public function viewPOST(Request $request, int $id)
+    {
+        GeneralOperations::viewPostHelper($request, $id, 'banda');
     }
 }

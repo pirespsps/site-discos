@@ -32,18 +32,17 @@ function resourceWithIsLogged(string $prefix, string $controller)
 {
 
     Route::resource($prefix, $controller)
+        ->middleware(IsLoggedMiddleware::class)
+        ->only([
+            'create',
+            'edit',
+        ]);
+
+    Route::resource($prefix, $controller)
         ->except([
             'store',
             'create',
             'update',
-            'edit',
-        ]);
-
-
-    Route::resource($prefix, $controller)
-        ->middleware(IsLoggedMiddleware::class)
-        ->only([
-            'create',
             'edit',
         ]);
 
