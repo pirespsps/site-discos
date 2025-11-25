@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banda;
 use Exception;
 use App\Services\GeneralOperations;
+use Illuminate\Container\Attributes\Storage;
 use Illuminate\Http\Request;
 
 class BandaController extends Controller
@@ -99,9 +100,23 @@ class BandaController extends Controller
     public function store(Request $request)
     {
 
-        $banda = Banda::find(1);
+        $file = $request->file('fileInput');
+        $fileName = time() . str_replace(' ','',trim($request->input('nome'))) . $file->getExtension();
 
-        return redirect()->route('bandas.show', ['id' => $banda->id]);
+        $file->store($fileName,'bandas');
+
+
+        $id = Banda::insertGetId(
+            [
+                'nome' => trim($request->input('nome')),
+                'local' => trim($request->input('local')),
+                'ano' => $request->input('ano'),
+                'path_img' => 'images/bandas/madseason.jpg',
+                'id_criador' => session('user.id'),
+            ]
+            );
+
+        return redirect()->route('bandas.show', ['banda' => $id]);
     }
 
     public function edit(Request $request, int $id)

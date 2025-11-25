@@ -47,6 +47,22 @@ return [
             'report' => false,
         ],
 
+        'bandas' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/bandas'),
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+        
+        'discos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/discos'),
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

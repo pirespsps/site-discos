@@ -6,6 +6,10 @@ $font-color: #d9d9d9;
 
 @import 'bootstrap/scss/bootstrap';
 
+::placeholder{
+    color: $font-color;
+}
+
 .bg-dark{
     background-color: $background-dark;
 }

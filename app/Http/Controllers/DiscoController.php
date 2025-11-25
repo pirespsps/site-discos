@@ -103,8 +103,10 @@ class DiscoController extends Controller
         return view("");
     }
 
-    public function store(Request $request  )
+    public function store(Request $request)
     {
+
+        dd($request->input());
 
         $disco = Disco::find(1);
 
