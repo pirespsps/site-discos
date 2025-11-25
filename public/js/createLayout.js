@@ -71,6 +71,8 @@ function addFocusEvents(element) {
                     label.setAttribute("style","opacity:0.4");
                     inputTitulo.setAttribute("style","opacity:0.4");
                     inputDuracao.setAttribute("style","opacity:0.4");
+                }else{
+                    inputDuracao.required = true;
                 }
             })
 

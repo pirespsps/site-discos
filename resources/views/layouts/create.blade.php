@@ -31,10 +31,12 @@
                         <input name="ano" type="number" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
                     </div>
 
-                    <div class="d-block"> <!--pegar do banco e fazer select depois...-->
-                        <label for="local" class="text-white">Local</label>
-                        <input name="local" type="text" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
-                    </div>
+                    @if ($type == "banda")
+                        <div class="d-block">
+                            <label for="local" class="text-white">Local</label>
+                            <input name="local" type="text" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -44,7 +46,13 @@
             <div class="d-block mt-4">
                 <div>
                     <label for="banda" class="text-white">Banda</label>
-                    <input name="banda" type="text" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
+                    <select name="banda" id="banda" class="bg-secondary rounded-pill w-50 mx-2 text-white" style="height: 4vh">
+                        @foreach ($bandas as $banda)
+                            <option value={{ $banda['id'] }} class="text-white">
+                                {{$banda['nome']}}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="mt-3" id="tracks">

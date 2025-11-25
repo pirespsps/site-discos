@@ -3,10 +3,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Comentario;
-use App\Models\Disco;
 use App\Models\Banda;
-use App\Models\Track;
 
 
 class GeneralOperations
@@ -59,6 +56,10 @@ class GeneralOperations
                 "id_$obj" => $id
             ]);
         }
+    }
+
+    public static function bandSelectQuery(){
+        return Banda::all(["id","nome"]);
     }
 
 }

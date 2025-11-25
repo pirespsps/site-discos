@@ -111,7 +111,7 @@ class BandaController extends Controller
                 'nome' => trim($request->input('nome')),
                 'local' => trim($request->input('local')),
                 'ano' => $request->input('ano'),
-                'path_img' => 'images/bandas/madseason.jpg',
+                'path_img' => "bandas/$fileName",
                 'id_criador' => session('user.id'),
             ]
             );

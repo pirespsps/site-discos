@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Disco;
+use App\Models\Track;
+use DB;
 use Exception;
 use App\Services\GeneralOperations;
 use Illuminate\Http\Request;
@@ -99,18 +101,45 @@ class DiscoController extends Controller
 
     public function create(Request $request)
     {
-
-        return view("");
+        return view("disco.disco-create",[
+            'bandas' => GeneralOperations::bandSelectQuery()
+        ]);
     }
 
     public function store(Request $request)
     {
 
-        dd($request->input());
+        $file = $request->file('fileInput');
+        $fileName = time() . str_replace(' ','',trim($request->input('nome'))) . $file->getExtension();
 
-        $disco = Disco::find(1);
+        $file->store($fileName,'discos');
 
-        return redirect()->route('discos.show', ['id' => $disco->id]);
+        $id = Disco::insertGetId([
+            "titulo" => trim($request->input('nome')),
+            "ano" => $request->input('ano'),
+            "path_img" => "discos/$fileName",
+            "id_criador" => session("user.id"),
+            "id_banda" => $request->input('banda'),
+        ]);
+
+        $tracks = $request->input("track");
+        $times = $request->input("time");
+
+        $objArray = [];
+
+        for($i = 0; $i<sizeof($tracks);$i++){
+            if($tracks[$i] != null){
+                $objArray[] = [
+                    "nome" => $tracks[$i],
+                    "duracao" => $times[$i],
+                    "id_disco" => $id,
+                ];    
+            }
+        }
+
+        DB::table('tb_track')->insert($objArray);
+
+        return redirect()->route('discos.show', ['disco' => $id]);
     }
 
     public function edit(Request $request, int $id)
