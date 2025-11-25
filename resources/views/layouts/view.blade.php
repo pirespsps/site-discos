@@ -8,7 +8,7 @@
 
     <div class="bg-dark w-25 p-4 vh-100 justify-content-start d-block mt-3 mb-3 border border-primary">
         <div class = "container h-10 w-10">
-            <img src="{{ asset($cover) }}" class="w-100 h-100 justify-content-center bg">
+            <img src="{{ asset('storage/' . $cover) }}" class="w-100 h-100 justify-content-center bg">
         </div>
             <div class="text-default d-block p-3">
                 <div>Gêneros: {{ implode(', ',$tags) }}</div>

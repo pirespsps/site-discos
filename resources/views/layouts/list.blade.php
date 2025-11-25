@@ -8,7 +8,7 @@
 
             <div class="d-inline">
                 <div class="d-flex">
-                    <img src="{{ asset($cover) }}" class="h-25 w-25">
+                    <img src="{{ asset('storage/' . $cover) }}" class="h-25 w-25">
                 <a href="{{ ($type == "disco" ? "discos" : $type == "banda") ? "bandas" : "musicas" }}/{{ $id }}" class="text-decoration-none text-white">
                     <h3>{{ $name }}</h3>
                 </a>

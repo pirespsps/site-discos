@@ -101,10 +101,10 @@ class BandaController extends Controller
     {
 
         $file = $request->file('fileInput');
-        $fileName = time() . str_replace(' ','',trim($request->input('nome'))) . $file->getExtension();
+        $extension = $file->getClientOriginalExtension();
+        $fileName = time() . str_replace(' ','',trim($request->input('nome'))) . ".$extension";
 
-        $file->store($fileName,'bandas');
-
+        $file->storeAs('',$fileName,'bandas');
 
         $id = Banda::insertGetId(
             [
