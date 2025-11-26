@@ -59,15 +59,21 @@ class DiscoController extends Controller
             $duracaoTotal += $h * 60 * 60 + $m * 60 + $s;
         }
 
+        $userComment = GeneralOperations::getCommentary('disco',$disco->id);
+
         $comentarios = [];
 
         foreach($disco->comentarios as $comentario){
-            $comentarios[] = [
-                $comentario->id_user,
-                $comentario->usuario->user,
-                $comentario->usuario->path_img,
-                $comentario->texto
-            ];
+            
+            if($comentario->id_user != $userComment->id_user){
+
+                $comentarios[] = [
+                    $comentario->id_user,
+                    $comentario->usuario->user,
+                    $comentario->usuario->path_img,
+                    $comentario->texto
+                ];
+            }
         }
 
         if($disco->usuario != null){
@@ -95,6 +101,7 @@ class DiscoController extends Controller
             'disco' => $disco,
             'tags' => $tags,
             'comentarios' => $comentarios,
+            'comentarioUsuario' => $userComment,
             'nota' => $nota
         ]);
     }

@@ -16,5 +16,6 @@
     'comentarios' => $comentarios,
     'type' => 'disco',
     'id' => $disco->id,
+    'comentarioUsuario' => $comentarioUsuario
 ])
 

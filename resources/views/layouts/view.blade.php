@@ -126,6 +126,7 @@
             </div>
         @endif
 
+        @if($comentarioUsuario == null)
         <div id="novoComentario" hidden>
             <div class="p-3 mx-4 mb-3 rounded bg-dark w-100">
                 <h3>Enviar comentário</h3>
@@ -136,6 +137,19 @@
                 </div>
             </div>
         </div>
+        @else
+        <div id="novoComentario">
+            <div class="p-3 mx-4 mb-3 rounded bg-dark w-100">
+                <h3>Editar comentário</h3>
+                <input type="hidden" name="edit" id="edit" value="true">
+                <textarea  id="comentarioTextArea" class="w-100">{{ $comentarioUsuario->texto }}</textarea>
+                <div class="justify-content-end d-flex">
+                        <button id="cancelarComentario" class="btn btn-secondary mx-1 h-100 text-black">Cancelar</button>
+                        <button id="enviarComentario"class="btn btn-primary mx-1 h-100 text-black">Salvar</button>
+                </div>
+            </div>
+        </div>
+        @endif
 
         <div>
             @foreach ($comentarios as [$id,$usuario,$icon,$texto])
