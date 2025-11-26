@@ -46,6 +46,8 @@ class GeneralOperations
 
         if ($comentario != null && $comentario != "") {
 
+            //if isEdit.........
+
             $idComentario = DB::table('tb_comentario')->insertGetId([
                 'id_user' => $idUser,
                 'texto' => trim($comentario)
@@ -60,6 +62,14 @@ class GeneralOperations
 
     public static function bandSelectQuery(){
         return Banda::all(["id","nome"]);
+    }
+
+    public static function getCommentary(string $obj,int $id){
+        return DB::table("tb_comentario_$obj")
+        ->join("tb_comentario","id_comentario","=","tb_comentario.id")
+        ->where("id_$obj",$id)
+        ->where('tb_comentario.id_user',session('user.id'))
+        ->get()->first();
     }
 
 }

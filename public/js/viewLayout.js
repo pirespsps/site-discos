@@ -75,12 +75,14 @@ function sendRequest(){
         let id = document.getElementById('id').value
         let type = document.getElementById('type').value
         let token = document.getElementById("_token").value
+        let edit = document.getElementById("edit").vaue
         axios.defaults.headers.common['X-CSRF-TOKEN'] = token
 
         axios.post(`/${type}/${id}/viewPOST`,{
             nota: nota,
             isFavorite: isFavorite,
             comentario: comentario,
+            isEdit: edit
         })
         .then(response => {console.log(response)})
         .catch(error => {console.log(error)})
