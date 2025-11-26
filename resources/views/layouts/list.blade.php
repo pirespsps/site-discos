@@ -6,7 +6,7 @@
     <div class="bg-dark d-block w-100 h-100 column p-3">
         @foreach ($multipleData as [$cover, $name, $value, $id])
 
-            <div class="bg-dark w-75 h-25 rounded mh-5 mt-2 p-3 d-flex border border-primary">
+            <div class="bg-dark w-100 h-25 rounded mh-5 mt-2 p-3 d-flex border border-primary">
                     <div class = "d-block w-25 h-50">
                         <img src="{{ asset('storage/' . $cover) }}" class="h-100 w-100 justify-content-center bg">
                     </div>
