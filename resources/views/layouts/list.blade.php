@@ -3,7 +3,7 @@
 @yield('body')
 <div class="container w-100 h-100 d-flex">
 
-    <div class="bg-dark d-block w-100 column p-3">
+    <div class="bg-dark d-block w-100 h-100 column p-3">
         @foreach ($multipleData as [$cover, $name, $value, $id])
 
             <div class="bg-dark w-75 h-25 rounded mh-5 mt-2 p-3 d-flex border border-primary">
