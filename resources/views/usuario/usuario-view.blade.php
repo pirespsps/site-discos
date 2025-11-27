@@ -4,7 +4,7 @@
 <div class="w-100 h-100">
     <div class="d-flex h-25 w-100 p-3">
         <img class="h-25 rounded-circle border border-primary" src="{{ asset($usuario->path_img) }}">
-        <h1 class="text-default">{{$usuario->user  }}</h1>
+        <h1 class="text-default">{{$usuario->user }}</h1>
 
         @if($usuario->id == session()->get('user.id'))
             <button id="editBT" class="btn btn-primary h-25 mt-2 mx-3">Editar Perfil</button>
@@ -32,7 +32,7 @@
                 <a class="text-default text-decoration-none"
                     href="{{ route('bandas.show', ['banda' => $card['banda_id']]) }}">
                     <h2 class="mx-5">{{ $card['banda'] }}</h2>
-                    <img class="w-50 mx-3 rounded p-2" src="{{ asset($card['banda_img']) }}">
+                    <img class="w-50 mx-3 rounded p-2" src="{{ asset("storage/".$card['banda_img']) }}">
                 </a>
             </div>
 
@@ -40,7 +40,7 @@
                 @foreach ($card['discos'] as [$titulo, $image, $id])
                     <div class="h-50 w-50 d-block mx-3">
                         <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $id]) }}">
-                            <img class="w-25 rounded" src="{{ asset($image) }}">
+                            <img class="w-25 rounded" src="{{ asset("storage/".$image) }}">
                             <p class="">{{ $titulo }}</p>
                         </a>
                     </div>
@@ -58,7 +58,7 @@
 
             <div class="h-50 w-50 text-default">
                 <a class="text-default text-decoration-none" href="{{ route('bandas.show', ['banda' => $id]) }}">
-                    <img class="h-75 w-75" src="{{ asset($image) }}">
+                    <img class="h-75 w-75" src="{{ asset("storage/".$image) }}">
                     <p>{{ $titulo }}</p>
                 </a>
             </div>
@@ -75,7 +75,7 @@
 
             <div class="h-50 w-50 text-default">
                 <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $id]) }}">
-                    <img class="h-75 w-75" src="{{ asset($img) }}">
+                    <img class="h-75 w-75" src="{{ asset("storage/".$img) }}">
                     <p>{{ $titulo }}</p>
                 </a>
             </div>
@@ -90,7 +90,7 @@
             <div class="d-block h-50 w-25">
                 <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $log['id']])}}">
                     <h3 class="w-100 mx-2">{{ $log['disco'] }}</h3>
-                    <img class="h-50 w-50 p-2" src="{{ asset($log['img']) }}">
+                    <img class="h-50 w-50 p-2" src="{{ asset("storage/".$log['img']) }}">
                 </a>
             </div>
             <div class="h-25 w-100 d-flex mx-3">
@@ -125,7 +125,7 @@
             @foreach ($comentarios_disco as $comentario)
                 <div class="w-50 h-25 border rounded p-2">
                     <div class="w-25 h-25 d-flex">
-                        <img class="w-25 h-25" src="{{ asset($comentario->disco[0]->path_img) }}">
+                        <img class="w-25 h-25" src="{{ asset("storage/".$comentario->disco[0]->path_img) }}">
                         <a class="text-decoration-none text-default"
                             href="{{ route('discos.show', ['disco' => $comentario->disco[0]->id]) }}">
                             <h3 class="mx-3">{{ $comentario->disco[0]->titulo }}</h3>
@@ -143,7 +143,7 @@
             @foreach ($comentarios_banda as $comentario)
                 <div class="w-50 h-25 border rounded p-2">
                     <div class="w-25 h-25 d-flex">
-                        <img class="w-25 h-25" src="{{ asset($comentario->banda[0]->path_img) }}">
+                        <img class="w-25 h-25" src="{{ asset("storage/".$comentario->banda[0]->path_img) }}">
                         <a class="text-decoration-none text-default"
                             href="{{ route('bandas.show', ['banda' => $comentario->banda[0]->id]) }}">
                             <h3 class="mx-3">{{ $comentario->banda[0]->nome }}</h3>
@@ -161,7 +161,7 @@
             @foreach ($comentarios_track as $comentario)
                 <div class="w-50 h-25 border rounded p-2">
                     <div class="w-25 h-25 d-flex">
-                        <img class="w-25 h-25" src="{{ asset($comentario->track[0]->banda->path_img) }}">
+                        <img class="w-25 h-25" src="{{ asset("storage/".$comentario->track[0]->banda->path_img) }}">
                         <a class="text-decoration-none text-default"
                             href="{{ route('tracks.show', ['track' => $comentario->track[0]->id]) }}">
                             <h3 class="mx-3">{{ $comentario->track[0]->titulo }}</h3>

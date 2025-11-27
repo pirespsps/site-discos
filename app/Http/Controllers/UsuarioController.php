@@ -63,6 +63,8 @@ class UsuarioController extends Controller
 
         }
 
+        //dd($usuario->comentarios_disco);
+
         $cards = $this->makeCards($usuario->discos);
 
         return view('usuario.usuario-view', [ //ordenar tudo por created_at depois, pagination
@@ -80,7 +82,6 @@ class UsuarioController extends Controller
 
     public function create(Request $request)
     {
-
         return view("");
     }
 
