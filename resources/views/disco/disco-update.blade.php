@@ -1,0 +1,23 @@
+@extends('layouts.create',[
+'titulo' => "Atualizar disco",
+'type' => "disco",
+'bandas' => $bandas,
+    'tags' => $tags,
+    'cover' => $disco->path_img,
+    'duracao' => $duracao,
+    'titulo' => $disco->titulo,
+    'ano' => $disco->ano,
+    'banda' => $disco->banda->nome,
+    'banda_id' => $disco->banda->id,
+    'usuario' => $disco->criador->user,
+    'usuario_id' => $disco->criador->id,
+    'isListened' => $isListened,
+    'isLiked' => $isLiked,
+    'nota' => $nota,
+    'hasCommentary' => $hasCommentary,
+    'multipleData' => $musicas,
+    'comentarios' => $comentarios,
+    'type' => 'disco',
+    'id' => $disco->id,
+    'comentarioUsuario' => $comentarioUsuario
+])
