@@ -30,7 +30,7 @@
 
         <div>
             <div class="d-flex mt-3 mx-3">
-                <input name="titulo" type="text" id="tituloI" value={{ $titulo }} class="form-data"></input>
+                <input name="titulo" type="text" id="tituloI" value="{{ $titulo }}" class="form-data"></input>
                 <div class="mt-3 mx-2">
                     <input name="ano" value={{ $ano }} id="anoI" class="form-data"></input>
                 </div>
@@ -86,8 +86,9 @@
 
                     @foreach ($multipleData as [$tituloT, $valor, $idT]) <!--tabela com input e remove-->
                         <tr name="row{{ $idT }}" class="rowI">
-                            <td><input name="mTitulo{{ $idT }}" type="text" value="{{$tituloT}}"></td>
-                            <td><input name="mValue{{ $idT }}" type="text" value="{{$valor}}"></td>
+                            <td><input name="mTitulo{{ $idT }}" class="input" type="text" value="{{$tituloT}}"></td>
+                            <td><input name="mValue{{ $idT }}" class="input" type="text" value="{{$valor}}"></td>
+                            <input class="input" type="hidden" value="{{ $idT }}">
                             <td class="ml-4"><button name="remove{{ $idT }}" class="btn btn-danger removeBT">X</button></td>
                         </tr>
                     @endforeach

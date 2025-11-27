@@ -1,5 +1,3 @@
-//import axios from 'axios';
-
 let favoritarIMG = document.getElementById("favoritarIMG")
 let comentarIMG = document.getElementById("comentarIMG")
 let stars = document.body.getElementsByClassName("starsIMG")

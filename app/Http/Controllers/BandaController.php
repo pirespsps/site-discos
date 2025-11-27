@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banda;
+use App\Models\Disco;
+use DB;
 use Exception;
 use App\Services\GeneralOperations;
 use Illuminate\Container\Attributes\Storage;
@@ -129,21 +131,64 @@ class BandaController extends Controller
     public function edit(Request $request, int $id)
     {
 
-        try {
-            $banda = Banda::findOrFail($id);
-        } catch (Exception $e) {
-            //tratar erro
+        try{
+            $banda = Banda::showQuery($id,session('user.id'));
+        }catch(Exception $e){
+            return view('erro', [
+                'erro' => "Disco não encontrado",
+                'message' => $e->getMessage()
+            ]);
         }
 
-        return view("", ['banda' => $banda]);
+        $tags = [];
+
+        foreach($banda->tags as $tag){
+            $tags[] = $tag->value;
+        }
+
+        $discos = [];
+
+        foreach ($banda->discos as $disco) {
+            $discos[] = [$disco->titulo, $disco->ano, $disco->id];
+        }
+
+        return view("banda.banda-update", [
+            'banda' => $banda,
+            'tags' => $tags,
+            'discos' => $discos,
+        ]);
 
     }
 
     public function update(Request $request, int $id)
     {
-        $banda = Banda::find(1);
+        $titulo = $request->post('titulo');
+        $ano = $request->post('ano');
 
-        return redirect()->route('bandas.show', ['id' => $banda->id]);
+        $banda = Banda::find($id);
+
+        $banda->nome = $titulo;
+        $banda->ano = $ano;
+
+        foreach($request->post('campos') as $disco){
+            $d = Disco::find($disco[2]);
+
+            if($d->titulo != $disco[0] || $d->ano != $disco[1]){
+                $d->titulo = trim($disco[0]);
+                $d->ano = trim($disco[1]);
+
+                $d->save();
+            }
+        }
+
+        foreach ($request->post('remove') ?? [] as $idDisco) {
+            DB::table('tb_disco')
+            ->where('id','=',$idDisco)
+            ->update(['id_banda' => null]);
+        }
+
+        $banda->save();
+
     }
 
     public function destroy(Request $request, int $id)

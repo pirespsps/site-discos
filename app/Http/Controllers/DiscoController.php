@@ -190,9 +190,44 @@ class DiscoController extends Controller
 
     public function update(Request $request, int $id)
     {
-        $disco = Disco::find(1);
+        $titulo = $request->post('titulo');
+        $ano = $request->post('ano');
+        $banda = $request->post("banda");
 
-        return redirect()->route('discos.show', ['id' => $disco->id]);
+        $disco = Disco::find($id);
+
+        $disco->titulo = $titulo;
+        $disco->ano = $ano;
+        $disco->id_banda = $banda;
+
+        foreach($request->post('campos') as $track){
+            $t = Track::find($track[2]);
+            
+            if($t == null){
+                Track::create(
+                    [
+                        "nome" => trim($track[0]),
+                        "duracao" => $track[1],
+                        "id_disco" => $id,
+                    ]);
+                continue;
+            }
+
+            if($t->nome != $track[0] || $t->duracao != strtotime($track[1])){
+                $t->nome = trim($track[0]);
+                $t->duracao = "00:" . trim($track[1]);
+
+                $t->save();
+            }
+        }
+
+        foreach ($request->post('remove') ?? [] as $idTrack) {
+            Track::destroy($idTrack);
+        }
+
+        $disco->save();
+
+        return "ok";
     }
 
     public function destroy(Request $request, int $id)
