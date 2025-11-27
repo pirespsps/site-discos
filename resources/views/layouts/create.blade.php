@@ -26,12 +26,13 @@
                 </div>
 
                 <div class="d-flex mt-4">
-                    <div class="d-block me-3">
-                        <label for="ano" class="text-white">Ano</label>
-                        <input name="ano" type="number" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
-                    </div>
 
                     @if ($type == "banda")
+                        <div class="d-block me-3">
+                            <label for="ano" class="text-white">Ano</label>
+                            <input name="ano" type="number" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
+                        </div>
+
                         <div class="d-block">
                             <label for="local" class="text-white">Local</label>
                             <input name="local" type="text" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
@@ -54,7 +55,10 @@
         </div>
 
         @if ($type == "disco")
-
+            <div class="d-block me-3">
+                <label for="ano" class="text-white">Ano</label>
+                <input name="ano" type="number" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
+            </div>
 
             <div class ="mt=4">
                 <label for="tag" class="text-white">Tag</label>
