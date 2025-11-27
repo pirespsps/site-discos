@@ -31,18 +31,24 @@
             <div class="w-100 h-100 d-block">
                 <a class="text-default text-decoration-none"
                     href="{{ route('bandas.show', ['banda' => $card['banda_id']]) }}">
-                    <h2 class="mx-5">{{ $card['banda'] }}</h2>
-                    <img class="w-50 mx-3 rounded p-2" src="{{ asset("storage/".$card['banda_img']) }}">
+                    <h2 class="mx-1">{{ $card['banda'] }}</h2>
+                    <div class = "d-block w-25 h-50 mx-2 mb-2">
+                        <img class="h-100 w-100 justify-content-center bg" src="{{ asset("storage/".$card['banda_img']) }}">
+                    </div>
                 </a>
             </div>
 
-            <div class="d-flex mt-5">
+            <div class="d-inline mt-5 w-100 h-100">
                 @foreach ($card['discos'] as [$titulo, $image, $id])
-                    <div class="h-50 w-50 d-block mx-3">
-                        <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $id]) }}">
-                            <img class="w-25 rounded" src="{{ asset("storage/".$image) }}">
-                            <p class="">{{ $titulo }}</p>
-                        </a>
+                    <div class="d-inline mt-5 w-100 h-100">
+                        <div class="h-100 w-100 d-block mx-3">
+                            <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $id]) }}">
+                                <div class = "d-block w-25 h-50 mx-2 mb-1">
+                                    <img lass="h-100 w-100 justify-content-center bg" src="{{ asset("storage/".$image) }}">
+                                </div>
+                                <p class="">{{ $titulo }}</p>
+                            </a>
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -86,23 +92,32 @@
 
 <div id="Logs" class="tab-content">
     @foreach ($logs as $log)
-        <div class="h-25 w-50 bg-dark d-flex rounded mt-3 {{ $log['isLiked'] ? 'border border-primary' : '' }}">
-            <div class="d-block h-50 w-25">
+        <div class="h-25 w-75 bg-dark d-flex rounded mt-3 {{ $log['isLiked'] ? 'border border-primary' : '' }}">
+            <div class="d-block h-75 w-25">
                 <a class="text-default text-decoration-none" href="{{ route('discos.show', ['disco' => $log['id']])}}">
                     <h3 class="w-100 mx-2">{{ $log['disco'] }}</h3>
-                    <img class="h-50 w-50 p-2" src="{{ asset("storage/".$log['img']) }}">
+                    <div class = "d-block w-25 h-50 mx-2 mb-1">
+                        <img class="h-100 w-100 justify-content-center bg" src="{{ asset("storage/".$log['img']) }}">
+                    </div>
                 </a>
             </div>
-            <div class="h-25 w-100 d-flex mx-3">
-                @for ($i = 0; $i < $log['nota']; $i++)
-                    <div class="w-25 h-25">
-                        <img class="h-25 w-25" src="{{ asset('images/primaryStarIcon.png') }}">
+            <div class="h-25 w-100 d-inline mx-3">
+                <div class = "row d-inline align-items-center justify-content-center">
+                    <div class="w-25 h-25 container">
+                    @for ($i = 0; $i < $log['nota']; $i++)
+                        <img  class="w-25 h-25 img-fluid starsIMG" src="{{ asset('images/primaryStarIcon.png') }}">
+                    @endfor
                     </div>
-                @endfor
+                </div>
             </div>
             @if ($log['isLiked'])
                 <div class="w-25 h-25">
-                    <img class="h-25 w-25 mx-5 mt-2" src="{{ asset('images/primaryHeartIcon.png') }}">
+                    <img class="h-25 w-25 mx-5 mt-3" src="{{ asset('images/primaryHeartIcon.png') }}">
+                </div>
+            @else
+                <div class="w-25 h-25">
+                    <div class="container h-25 w-25 xm-5 mt-3">
+                    </div>
                 </div>
             @endif
         </div>
