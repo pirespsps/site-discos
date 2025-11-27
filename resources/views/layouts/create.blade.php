@@ -36,12 +36,36 @@
                             <label for="local" class="text-white">Local</label>
                             <input name="local" type="text" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
                         </div>
+
+                        <div class="mt-3 mx-2">
+                            <label for="tag" class="text-white">Tag</label>
+                            <select name="tag" id="tag" class="bg-secondary rounded-pill w-50 mx-2 text-white" style="height: 4vh">
+                                @foreach ($tags as $tag)
+                                    <option value={{ $tag['id'] }} class="text-white">
+                                        {{$tag['value']}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                     @endif
                 </div>
             </div>
         </div>
 
         @if ($type == "disco")
+
+
+            <div class ="mt=4">
+                <label for="tag" class="text-white">Tag</label>
+                <select name="tag" id="tag" class="bg-secondary rounded-pill w-50 mt-2 mx-2 text-white" style="height: 4vh">
+                    @foreach ($tags as $tag)
+                        <option value={{ $tag['id'] }} class="text-white">
+                            {{$tag['value']}}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
             <div class="d-block mt-4">
                 <div>
@@ -54,6 +78,7 @@
                         @endforeach
                     </select>
                 </div>
+
 
                 <div class="mt-3" id="tracks">
 

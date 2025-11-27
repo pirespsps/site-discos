@@ -110,7 +110,7 @@ class DiscoController extends Controller
     {
         return view("disco.disco-create",[
             'bandas' => GeneralOperations::bandSelectQuery()
-        ]);
+        ], ['tags' => GeneralOperations::tagSelectQuery()]);
     }
 
     public function store(Request $request)

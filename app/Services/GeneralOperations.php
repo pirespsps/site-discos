@@ -4,7 +4,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Banda;
-
+use App\Models\Tag;
 
 class GeneralOperations
 {
@@ -71,6 +71,10 @@ class GeneralOperations
 
     public static function bandSelectQuery(){
         return Banda::all(["id","nome"]);
+    }
+
+    public static function tagSelectQuery(){
+        return Tag::all(["id","value"]);
     }
 
     public static function getCommentary(string $obj,int $id){

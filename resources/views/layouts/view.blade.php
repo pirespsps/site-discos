@@ -11,7 +11,7 @@
             <img src="{{ asset('storage/' . $cover) }}" class="w-100 h-100 justify-content-center bg">
         </div>
             <div class="text-default d-block p-3">
-                <div>Gêneros: {{ implode(', ',$tags) }}</div>
+                <div>Tags: {{ implode(', ',$tags) }}</div>
                 @if ($type != "banda")
                     <div>Duração: {{ $duracao }}</div>
                 @endif

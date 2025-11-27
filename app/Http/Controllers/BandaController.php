@@ -100,7 +100,7 @@ class BandaController extends Controller
     {
 
         return view("banda.banda-create",[
-            
+            'tags' => GeneralOperations::tagSelectQuery()
         ]);
     }
 
