@@ -1,78 +1,114 @@
 @include('layouts.header', ['titulo' => $titulo])
 
 @yield('body')
+<div class="container w-100 h-100 d-flex">
+    <input type="hidden" name="_token" id="_token" value={{ csrf_token() }}>
+    <input type="hidden" name="type" id="type" value={{ $type . 's' }}>
+    <input type="hidden" name="id" id="id" value={{ $id }}>
 
-<div class="w-75 h-75 bg-dark mx-auto mt-4 rounded-5 rounded-bottom" style="min-height:84vh">
-    <h2 class="text-white w-100 p-3 m-3">Editar {{ $type }}s</h2>
-    <form method="POST" action={{ route($type."s.update", [$type => id]) }} class="p-3 m-3" enctype="multipart/form-data">
-        @csrf
-
-        <div class="d-flex w-100">
-
-            <div class="me-4">
-                <div id="uploadDiv" class="d-block p-1 bg-primary" style="min-height: 30vh; min-width: 15vw;">
-                    <img id="previewImg" src="" style="width: 100%; height: 100%;">
+    <div class="bg-dark w-25 p-4 vh-100 justify-content-start d-block mt-3 mb-3 border border-primary">
+        <div class = "container h-10 w-10">
+            <img src="{{ asset('storage/' . $cover) }}" class="w-100 h-100 justify-content-center bg">
+        </div>
+            <div class="text-default d-block p-3">
+                <div>Gêneros: {{ implode(', ',$tags) }}</div>
+                @if ($type != "banda")
+                    <div>Duração: {{ $duracao }}</div>
+                @endif
+            </div>
+            <div class = "container h-10 w-10">
+                <div class = "row d-flex align-items-center justify-content-center">
+                    <div class="text-default d-block text-center p-3">
+                    </div>
                 </div>
             </div>
-            <input type="file" name="fileInput" id="fileInput" accept="image/*" style="display: none;" required>
+            <div class="text-default d-flex text-center mt-5 mb-5">
+            </div>
+    </div>
 
-            <div class="w-100 m-3">
+    <div class="d-block text-default w-100 h-100">
 
-                <div class="d-block">
-                    <label for="nome" class="text-white">Nome</label>
-                    <input name="nome" type="input" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
+        <div>
+            <div class="d-flex mt-3 mx-3">
+                <input name="titulo" type="text" id="tituloI" value={{ $titulo }} class="form-data"></input>
+                <div class="mt-3 mx-2">
+                    <input name="ano" value={{ $ano }} id="anoI" class="form-data"></input>
                 </div>
+            </div>
 
-                <div class="d-flex mt-4">
-                    <div class="d-block me-3">
-                        <label for="ano" class="text-white">Ano</label>
-                        <input name="ano" type="number" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
-                    </div>
+            <div class="mx-4 mb-3">
+                @if($type == 'track')
+                    <p style="margin-bottom: 0">pertence a
+                        <a href="{{ route('discos.show',['disco' =>  $disco_id ]) }}" class="text-white text-decoration-none">{{ $disco }}</a>
+                    </p>
+                @endif
 
-                    @if ($type == "banda")
-                        <div class="d-block">
-                            <label for="local" class="text-white">Local</label>
-                            <input name="local" type="input" class="bg-secondary rounded-pill w-100" style="height:5.3vh;">
-                        </div>
-                    @endif
-                </div>
+                @if ($type != 'banda')
+                    <p style="margin-bottom: 0">de
+                        <select name="banda" id="bandaI">
+                            @foreach ($bandas as $b)
+                                @if ($b->id == $banda_id)
+                                    <option value={{ $b->id }} selected>{{ $b->nome }}</option>
+                                @else
+                                    <option value={{ $b->id }}>{{ $b->nome }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </p>
+                @endif
+
+                <p style="margin-bottom: 0">cadastrado por
+                    <a href="/usuarios/{{ $usuario_id }}" class="text-white text-decoration-none"> {{ $usuario }} </a>
+                </p>
             </div>
         </div>
 
-        @if ($type == "disco")
+        @if(isset($multipleData))
 
-            <div class="d-block mt-4">
-                <div>
-                    <label for="banda" class="text-white">Banda</label>
-                    <select name="banda" id="banda" class="bg-secondary rounded-pill w-50 mx-2 text-white" style="height: 4vh">
-                        @foreach ($bandas as $banda)
-                            <option value={{ $banda['id'] }} class="text-white">
-                                {{$banda['nome']}}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+            <div class="bg-dark mx-4 w-100 rounded">
+                @if($type == "disco")
+                    <h1 class="p-3">Músicas</h1>
+                @else
+                    <h1 class="p-3">Discos</h1>
+                @endif
 
-                <div class="mt-3" id="tracks">
+                <table id="tabela" class="table table-dark table-striped table-hover">
 
-                    <div>
-                        <label class="text-white" for="track1">Track 1</label>
-                        <input class="w-50 bg-secondary rounded-pill m-1 text-white" type="input" id="track1" name="track[]"
-                            required>
-                        <input placeholder="Duração mm:ss" class="w-25 bg-secondary rounded-pill text-white m-1" type="input"
-                            id="time1" name="time[]" required>
-                    </div>
+                    <thead>
+                        <th>Título</th>
+                        @if($type != 'banda')
+                            <th>Duração</th>
+                        @else
+                            <th>Ano</th>
+                        @endif
+                        <th>Remover</th>
+                    </thead>
 
-                </div>
+                    @foreach ($multipleData as [$tituloT, $valor, $idT]) <!--tabela com input e remove-->
+                        <tr name="row{{ $idT }}" class="rowI">
+                            <td><input name="mTitulo{{ $idT }}" type="text" value="{{$tituloT}}"></td>
+                            <td><input name="mValue{{ $idT }}" type="text" value="{{$valor}}"></td>
+                            <td class="ml-4"><button name="remove{{ $idT }}" class="btn btn-danger removeBT">X</button></td>
+                        </tr>
+                    @endforeach
+
+                </table>
+
             </div>
         @endif
 
-        <div class="w-25 h-25 mt-4 mx-auto">
-            <input class="btn btn-primary w-100 h-100 mx-auto" type="submit">
-        </div>
+    </div>
 
-    </form>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="{{ asset('js/editLayout.js') }}"></script>
 
-    <script type="module" src="{{ asset('js/createLayout.js') }}"></script>
+</div>
 
+<div class="d-flex text-center justify-content-center mb-3">
+        <button class="btn btn-secondary mx-5">
+            <a class="text-white text-decoration-none" href="{{ "/{$type}s/{$id}" }}">
+                Cancelar
+            </a>
+        </button>
+        <button id="confirmarBT" class="btn btn-success mx-5">Confirmar edição</button>
 </div>

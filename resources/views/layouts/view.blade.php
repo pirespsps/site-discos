@@ -59,6 +59,15 @@
                 @endif
 
             </div>
+            @if ($usuario_id == session('user.id'))
+                <div class="mx-auto text-center">
+                    <button class="btn btn-primary"> 
+                        <a href= {{"/{$type}s/{$id}/edit"}} class="text-white text-decoration-none">
+                            Editar {{ $type }}
+                        </a>
+                    </button>
+                </div>
+            @endif
     </div>
 
     <div class="d-block text-default w-100 h-100">

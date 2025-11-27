@@ -18,4 +18,3 @@
     'id' => $disco->id,
     'comentarioUsuario' => $comentarioUsuario
 ])
-

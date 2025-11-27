@@ -34,28 +34,13 @@ Route::post("/tracks/{id}/removerComentario",[TrackController::class,"removerCom
 
 function resourceWithIsLogged(string $prefix, string $controller)
 {
+    Route::middleware(IsLoggedMiddleware::class)->group(function () use ($prefix, $controller) {
+        Route::resource($prefix, $controller)
+            ->only(['create', 'edit', 'store', 'update']);
+    });
 
     Route::resource($prefix, $controller)
-    ->middleware(IsLoggedMiddleware::class)
-    ->only([
-        'store',
-        'update',
-    ]);
+        ->except(['create', 'edit', 'store', 'update']);
 
-    Route::resource($prefix, $controller)
-        ->middleware(IsLoggedMiddleware::class)
-        ->only([
-            'create',
-            'edit',
-        ]);
-
-    Route::resource($prefix, $controller)
-        ->except([
-            'store',
-            'create',
-            'update',
-            'edit',
-        ]);
-
-    Route::get("$prefix/search/{nome}",[$controller,"pesquisa"]);
+    Route::get("$prefix/search/{nome}", [$controller, "pesquisa"]);
 }

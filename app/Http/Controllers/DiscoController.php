@@ -151,15 +151,41 @@ class DiscoController extends Controller
 
     public function edit(Request $request, int $id)
     {
-
-        try {
-            $disco = Disco::findOrFail($id);
-        } catch (Exception $e) {
-            //tratar erro
+        try{
+            $disco = Disco::showQuery($id,session('user.id'));
+        }catch(Exception $e){
+            return view('erro', [
+                'erro' => "Disco não encontrado",
+                'message' => $e->getMessage()
+            ]);
         }
 
-        return view("", ['disco' => $disco]);
+        $tags = [];
 
+        foreach($disco->tags as $tag){
+            $tags[] = $tag->value;
+        }
+
+        $musicas = [];
+        $duracaoTotal = 0;
+
+        foreach ($disco->tracks as $track) {
+            [$h, $m, $s] = explode(':', $track->duracao);
+
+            $musicas[] = [$track->nome, sprintf('%02d:%02d', $m, $s), $track->id];
+
+            $duracaoTotal += $h * 60 * 60 + $m * 60 + $s;
+        }
+
+        $dataFormatada = $duracaoTotal > (60 * 60) ? gmdate('H:i:s', $duracaoTotal) : gmdate('i:s', $duracaoTotal);
+
+        return view("disco.disco-update", [
+            'duracao' => $dataFormatada,
+            'musicas' => $musicas,
+            'disco' => $disco,
+            'tags' => $tags,
+            'bandas' => GeneralOperations::bandSelectQuery(),
+        ]);
     }
 
     public function update(Request $request, int $id)
