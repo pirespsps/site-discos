@@ -23,7 +23,6 @@
             <a class="text-light mt-4 mx-3 text-decoration-none" href = {{route('bandas.index') }}>Bandas</a>
             <a class="text-light mt-4 mx-3 text-decoration-none" href = {{route('discos.index') }}>Discos</a>
              <div class="d-flex justify-content-between align-content-center">
-                <input class="form-control bg-secondary text-info rounded-5 mt-3 mb-4 mx-3" type="text" name="pesquisa" placeholder="Pesquisar">
                 <div id= "dropdown-header-parent">
                     <button class="btn btn-primary text-light fw-bold w-40 rounded-5 mt-4 mx-5" type="button">+</button>
                         <ul class= "bg-primary justify-content-start rounded-2" id="dropdown-header">
