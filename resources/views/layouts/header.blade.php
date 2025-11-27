@@ -24,7 +24,13 @@
             <a class="text-light mt-4 mx-3 text-decoration-none" href = {{route('discos.index') }}>Discos</a>
              <div class="d-flex justify-content-between align-content-center">
                 <input class="form-control bg-secondary text-info rounded-5 mt-3 mb-4 mx-3" type="text" name="pesquisa" placeholder="Pesquisar">
-                <a href = {{route('index') }}><button class="btn btn-primary text-light fw-bold w-40 rounded-5 mt-4 mx-5" type="button">+</button></a>
+                <div id= "dropdown-header-parent">
+                    <button class="btn btn-primary text-light fw-bold w-40 rounded-5 mt-4 mx-5" type="button">+</button>
+                        <ul class= "bg-primary justify-content-start rounded-2" id="dropdown-header">
+                            <li class="text-light text-center mx-2 justify-content-between mt-1 mb-1"><a class="text-light mt-4 mx-3 text-decoration-none" href = {{route('bandas.create') }}>Banda</a></li>
+                            <li class="text-light text-center mx-2 justify-content-between mt-1 mb-1"><a class="text-light mt-4 mx-3 text-decoration-none" href = {{route('discos.create') }}>Disco</a></li>
+                        </ul>
+                </div>
                 <img src={{asset('images/listras.png')}} class="mx-2"alt="Discoteca" width="70" height="84">
 
                 @if ( session()->get('user','notLogged') != 'notLogged' )
