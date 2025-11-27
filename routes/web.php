@@ -28,6 +28,10 @@ Route::post("/discos/{id}/viewPOST",[DiscoController::class,"viewPOST"]);
 Route::post("/bandas/{id}/viewPOST",[BandaController::class,"viewPOST"]);
 Route::post("/tracks/{id}/viewPOST",[TrackController::class,"viewPOST"]);
 
+Route::post("/discos/{id}/removerComentario",[DiscoController::class,"removerComentario"]);
+Route::post("/bandas/{id}/removerComentario",[BandaController::class,"removerComentario"]);
+Route::post("/tracks/{id}/removerComentario",[TrackController::class,"removerComentario"]);
+
 function resourceWithIsLogged(string $prefix, string $controller)
 {
 

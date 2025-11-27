@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Track;
 use Carbon\Carbon;
 use Exception;
-use GeneralOperations;
+use App\Services\GeneralOperations;
 use Illuminate\Http\Request;
 
 class TrackController extends Controller{
@@ -31,15 +31,21 @@ class TrackController extends Controller{
             $tags[] = $tag->value;
         }
 
+        $userComment = GeneralOperations::getCommentary('track',$track->id);
+
         $comentarios = [];
 
         foreach($track->comentarios as $comentario){
-            $comentarios[] = [
-                $comentario->id_user,
-                $comentario->usuario->user,
-                $comentario->usuario->path_img,
-                $comentario->texto
-            ];
+            
+            if($comentario->id_user != $userComment->id_user){
+
+                $comentarios[] = [
+                    $comentario->id_user,
+                    $comentario->usuario->user,
+                    $comentario->usuario->path_img,
+                    $comentario->texto
+                ];
+            }
         }
 
         if($track->disco->usuario != null){
@@ -61,7 +67,8 @@ class TrackController extends Controller{
             'comentarios' => $comentarios,
             'isListened' => $isListened,
             'isLiked' => $isLiked,
-            'duracao' => $duracaoFormatada
+            'duracao' => $duracaoFormatada,
+            'comentarioUsuario' => $userComment,
         ]);
     }
 
@@ -103,5 +110,9 @@ class TrackController extends Controller{
 
     public function viewPOST(Request $request,int $id){
         GeneralOperations::viewPostHelper($request,$id,'track');
+    }
+
+    public function removerComentario(Request $request, int $id){
+        GeneralOperations::removerComentario('track',$id);
     }
 }

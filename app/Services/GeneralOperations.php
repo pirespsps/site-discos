@@ -14,6 +14,7 @@ class GeneralOperations
 
         $nota = $request->input('nota');
         $isFavorite = $request->input('isFavorite');
+        echo $isFavorite;
         $comentario = $request->input('comentario');
         $idUser = session('user.id');
 
@@ -23,7 +24,7 @@ class GeneralOperations
             ->exists();
 
         $data = [
-            'isLiked' => $isFavorite === null? false : ($isFavorite === ""? false : true),
+            'isLiked' => $isFavorite == 1,
             'hasCommentary' => !empty($comentario),
             'nota' => $nota
         ];
@@ -46,17 +47,25 @@ class GeneralOperations
 
         if ($comentario != null && $comentario != "") {
 
-            //if isEdit.........
+            if(!$request->post('isEdit')){
 
-            $idComentario = DB::table('tb_comentario')->insertGetId([
-                'id_user' => $idUser,
-                'texto' => trim($comentario)
-            ]);
+                $idComentario = DB::table('tb_comentario')->insertGetId([
+                    'id_user' => $idUser,
+                    'texto' => trim($comentario)
+                ]);
 
-            DB::table("tb_comentario_$obj")->insert([
-                'id_comentario' => $idComentario,
-                "id_$obj" => $id
-            ]);
+                DB::table("tb_comentario_$obj")->insert([
+                    'id_comentario' => $idComentario,
+                    "id_$obj" => $id
+                ]);
+            
+            }else{
+                $comentario = DB::table("tb_comentario_$obj")
+                ->join('tb_comentario','id_comentario','=','tb_comentario.id')
+                ->where('tb_comentario.id_user','=',session('user.id'))
+                ->where("tb_comentario_$obj.id_$obj","=",$id)
+                ->update(['texto' => trim($comentario)]);
+            }
         }
     }
 
@@ -71,5 +80,31 @@ class GeneralOperations
         ->where('tb_comentario.id_user',session('user.id'))
         ->get()->first();
     }
+
+    public static function removerComentario(string $obj, int $id){
+
+        $comentario = DB::table("tb_comentario_$obj")
+        ->join('tb_comentario',"id_comentario","=","tb_comentario.id")
+        ->where("id_$obj",$id)
+        ->where("tb_comentario.id_user",session('user.id'))
+        ->first();
+
+        DB::table("tb_user_$obj")
+        ->where("id_$obj", "=",$id)
+        ->where("id_user","=",session("user.id"))
+        ->update(['hasCommentary' => false]);
+
+        DB::table('tb_comentario')->delete($comentario->id);
+
+    }
+
+    private static function debug_to_console($data) {
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
+
+    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+    
+}
 
 }

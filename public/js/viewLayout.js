@@ -4,8 +4,11 @@ let favoritarIMG = document.getElementById("favoritarIMG")
 let comentarIMG = document.getElementById("comentarIMG")
 let stars = document.body.getElementsByClassName("starsIMG")
 let comentarioField = document.getElementById("novoComentario")
+const removerComentario = document.getElementById("removerComentario")
+const type = document.getElementById('type').value
+const id = document.getElementById('id').value
 
-let path = "http://127.0.0.1:8000/images/"
+const path = "http://127.0.0.1:8000/images/"
 
 let isFavorite = favoritarIMG.src.includes("primary")
 let isCommented = comentarIMG.src.includes("primary")
@@ -13,10 +16,14 @@ let nota = getNota();
 let hasChanged = false;
 let comentario = "";
 
+const edit = document.getElementById("edit")
+
 window.onbeforeunload = () => {sendRequest()}
 
 document.getElementById("cancelarComentario").addEventListener("click",()=>{
-    document.getElementById("comentarioTextArea").value = ""
+    if(edit == null){
+        document.getElementById("comentarioTextArea").value = ""
+    }
     comentarioField.hidden = true
 });
 
@@ -30,6 +37,31 @@ document.getElementById("enviarComentario").addEventListener("click", () => {
     }
 
 })
+
+if(removerComentario != null){
+    removerComentario.addEventListener("click",()=>{
+        let confirmDialog = document.getElementById("confirmDialog"); 
+        confirmDialog.hidden = false;
+        confirmDialog.scrollIntoView({behavior:"smooth",block:"start",inline:"nearest"})
+    });
+}
+
+document.getElementById("confirmarRemover").addEventListener("click",()=>{
+
+    let token = document.getElementById("_token").value
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+
+    axios.post(`/${type}/${id}/removerComentario`,{})
+    .then(response => {console.log(response)})
+    .catch(error => {console.log(error)})
+
+    window.location.reload(true);
+
+});
+
+document.getElementById("cancelarRemover").addEventListener("click",()=>{
+    document.getElementById("confirmDialog").hidden = true
+});
 
 Array.from(stars).forEach(element => {
     element.addEventListener("click", () => { starEvent(element) });
@@ -72,17 +104,14 @@ function starEvent(element) {
 function sendRequest(){
     if(hasChanged){
 
-        let id = document.getElementById('id').value
-        let type = document.getElementById('type').value
         let token = document.getElementById("_token").value
-        let edit = document.getElementById("edit").vaue
         axios.defaults.headers.common['X-CSRF-TOKEN'] = token
 
         axios.post(`/${type}/${id}/viewPOST`,{
             nota: nota,
             isFavorite: isFavorite,
             comentario: comentario,
-            isEdit: edit
+            isEdit: edit != null
         })
         .then(response => {console.log(response)})
         .catch(error => {console.log(error)})

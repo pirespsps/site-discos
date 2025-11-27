@@ -52,15 +52,21 @@ class BandaController extends Controller
             $discos[] = [$disco->titulo, $disco->ano, $disco->id];
         }
 
+        $userComment = GeneralOperations::getCommentary('banda',$banda->id);
+
         $comentarios = [];
 
-        foreach ($banda->comentarios as $comentario) {
-            $comentarios[] = [
-                $comentario->id_user,
-                $comentario->usuario->user,
-                $comentario->usuario->path_img,
-                $comentario->texto
-            ];
+        foreach($banda->comentarios as $comentario){
+            
+            if($comentario->id_user != $userComment->id_user){
+
+                $comentarios[] = [
+                    $comentario->id_user,
+                    $comentario->usuario->user,
+                    $comentario->usuario->path_img,
+                    $comentario->texto
+                ];
+            }
         }
 
         if ($banda->usuario != null) {
@@ -85,6 +91,7 @@ class BandaController extends Controller
             'banda' => $banda,
             'tags' => $tags,
             'comentarios' => $comentarios,
+            'comentarioUsuario' => $userComment,
         ]);
 
     }
@@ -149,5 +156,9 @@ class BandaController extends Controller
     public function viewPOST(Request $request, int $id)
     {
         GeneralOperations::viewPostHelper($request, $id, 'banda');
+    }
+
+    public function removerComentario(Request $request, int $id){
+        GeneralOperations::removerComentario('banda',$id);
     }
 }

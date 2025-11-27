@@ -109,12 +109,12 @@
                         @endif
                     </thead>
 
-                    @foreach ($multipleData as [$titulo, $valor, $id])
+                    @foreach ($multipleData as [$tituloT, $valor, $id])
                         <tr>
                             <td>
                                 <a href="/{{ $type == 'banda' ? "discos" : "tracks" }}/{{ $id }}"
                                     class="text-decoration-none text-default">
-                                    {{$titulo}}
+                                    {{$tituloT}}
                                 </a>
                             </td>
                             <td>{{$valor}}</td>
@@ -126,7 +126,7 @@
             </div>
         @endif
 
-        @if($comentarioUsuario == null)
+        @if(!isset($comentarioUsuario))
         <div id="novoComentario" hidden>
             <div class="p-3 mx-4 mb-3 rounded bg-dark w-100">
                 <h3>Enviar comentário</h3>
@@ -145,6 +145,7 @@
                 <textarea  id="comentarioTextArea" class="w-100">{{ $comentarioUsuario->texto }}</textarea>
                 <div class="justify-content-end d-flex">
                         <button id="cancelarComentario" class="btn btn-secondary mx-1 h-100 text-black">Cancelar</button>
+                        <button id="removerComentario" class="btn btn-danger mx-1 h-100 text-black">Remover</button>
                         <button id="enviarComentario"class="btn btn-primary mx-1 h-100 text-black">Salvar</button>
                 </div>
             </div>
@@ -170,4 +171,22 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="module" src="{{ asset('js/viewLayout.js') }}"></script>
 
+</div>
+
+<div hidden id="confirmDialog" 
+style="
+    top:0px;
+    position: absolute;
+    z-index: 100;
+    overflow: hidden;
+    background-color: rgba(000,000,000,0.3);">
+    <div id="overlay" style="height: 150vh; width: 100vw; overflow: hidden;">
+        <div class="bg-secondary w-50 p-3 text-center mx-auto col-md-6 rounded mt-5">
+            <h5 class="text-white text-center">Você tem certeza que deseja remover seu comentário?</h5>
+            <div class="d-flex text-center mt-5 pb-4 justify-content-center">
+                <button id="cancelarRemover" class="btn btn-success mx-4">Cancelar</button>
+                <button id="confirmarRemover" class="btn btn-danger mx-4">Confirmar</button>
+            </div>
+        </div>
+    </div>
 </div>

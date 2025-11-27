@@ -11,5 +11,6 @@
     'comentarios' => $comentarios,
     'type' => 'banda',
     'id' => $banda->id,
-    'nota' => $nota
+    'nota' => $nota,
+    'comentarioUsuario' => $comentarioUsuario
 ])

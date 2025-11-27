@@ -179,4 +179,8 @@ class DiscoController extends Controller
     public function viewPOST(Request $request,int $id){
         GeneralOperations::viewPostHelper($request,$id,'disco');
     }
+
+    public function removerComentario(Request $request, int $id){
+        GeneralOperations::removerComentario('disco',$id);
+    }
 }

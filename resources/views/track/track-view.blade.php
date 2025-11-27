@@ -14,6 +14,7 @@
     'disco_id' => $track->disco->id,
     'comentarios' => $comentarios,
     'type' => 'track',
-    'id' => $track->id
+    'id' => $track->id,
+    'comentarioUsuario' => $comentarioUsuario,
 ])
 
