@@ -115,4 +115,8 @@ class TrackController extends Controller{
     public function removerComentario(Request $request, int $id){
         GeneralOperations::removerComentario('track',$id);
     }
+
+    public function pesquisa(Request $request, string $nome){
+        return "ok";
+    }
 }

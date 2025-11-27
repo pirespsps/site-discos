@@ -183,4 +183,24 @@ class DiscoController extends Controller
     public function removerComentario(Request $request, int $id){
         GeneralOperations::removerComentario('disco',$id);
     }
+
+    public function pesquisa(Request $request, string $nome){
+
+        $discos = Disco::with(['banda'])
+        ->where('titulo','LIKE',"%$nome%")
+        ->get();
+
+        $discosArray = [];
+        foreach($discos as $disco){
+            $discosArray[] = [
+                $disco->path_img,
+                $disco->titulo,
+                $disco->banda->nome,
+                $disco->id
+            ];
+        }
+
+        return view('disco.disco-list', ['discos' => $discosArray]);
+    }
+
 }

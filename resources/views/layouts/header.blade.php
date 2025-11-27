@@ -23,7 +23,16 @@
             <a class="text-light mt-4 mx-3 text-decoration-none" href = {{route('bandas.index') }}>Bandas</a>
             <a class="text-light mt-4 mx-3 text-decoration-none" href = {{route('discos.index') }}>Discos</a>
              <div class="d-flex justify-content-between align-content-center">
-                <input class="form-control bg-secondary text-info rounded-5 mt-3 mb-4 mx-3" type="text" name="pesquisa" placeholder="Pesquisar">
+                
+                <div>
+                    <input class="form-control bg-secondary text-info rounded-5 mb-1 mt-3 mx-3" type="text" name="pesquisar" id="pesquisar" placeholder="Pesquisar">
+                    <ul class="bg-primary justify-content-start rounded-2 mx-4" id="dropdown-pesquisar" hidden>
+                        <li data-value="usuarios" class="text-light text-center mx-auto justify-content-between mb-1 pesquisa-item">Pesquisar em usuários</li>
+                        <li data-value="bandas" class="text-light text-center mx-auto justify-content-between mb-1 pesquisa-item">Pesquisar em bandas</li>
+                        <li data-value="discos" class="text-light text-center mx-auto justify-content-between mb-1 pesquisa-item">Pesquisar em discos</li>
+                    </ul>
+                </div>
+
                 <div id= "dropdown-header-parent">
                     <button class="btn btn-primary text-light fw-bold w-40 rounded-5 mt-4 mx-5" type="button">+</button>
                         <ul class= "bg-primary justify-content-start rounded-2" id="dropdown-header">
@@ -49,6 +58,7 @@
             </div>
         </div>
     </div>
+<script type="module" src="{{ asset('js/header.js') }}"></script>
 </div>
 </body>
 </html>

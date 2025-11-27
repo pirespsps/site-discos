@@ -198,4 +198,25 @@ class UsuarioController extends Controller
         return $cards;
 
     }
+
+    public function pesquisa(Request $request, string $nome){
+        
+        $usuarios = Usuario::where('user','LIKE',"%$nome%")
+        ->get();
+
+        $usuariosArray = [];
+        foreach($usuarios as $usuario){
+            $usuariosArray[] = [
+                $usuario->path_img,
+                $usuario->user,
+                "",
+                $usuario->id
+            ];
+        }
+        
+
+        return view('usuario.usuario-list',[
+            "usuarios" => $usuariosArray,
+        ]);
+    }
 }

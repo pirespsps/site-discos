@@ -57,4 +57,5 @@ function resourceWithIsLogged(string $prefix, string $controller)
             'edit',
         ]);
 
+    Route::get("$prefix/search/{nome}",[$controller,"pesquisa"]);
 }

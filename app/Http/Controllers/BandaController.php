@@ -161,4 +161,24 @@ class BandaController extends Controller
     public function removerComentario(Request $request, int $id){
         GeneralOperations::removerComentario('banda',$id);
     }
+
+    public function pesquisa(Request $request, string $nome){
+        
+        $bandas = Banda::where('nome','LIKE',"%$nome%")
+        ->get();
+
+        $bandasArray = [];
+        foreach ($bandas as $banda) {
+            $bandasArray[] = [
+                $banda->path_img,
+                $banda->nome,
+                $banda->ano,
+                $banda->id
+            ];
+        }
+
+        return view('banda.banda-list',[
+            'bandas' => $bandasArray
+        ]);
+    }
 }
